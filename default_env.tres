@@ -1,7 +1,18 @@
 [gd_resource type="Environment" load_steps=2 format=2]
 
 [sub_resource type="ProceduralSky" id=1]
+sun_longitude = -49.66
 
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.1
+ambient_light_sky_contribution = 0.0
+fog_depth_end = 43.0
+ssao_enabled = true
+dof_blur_far_enabled = true
+dof_blur_far_distance = 78.7
+dof_blur_far_transition = 118.25
+dof_blur_far_amount = 0.09
+dof_blur_far_quality = 0
