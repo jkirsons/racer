@@ -16,7 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="racer"
+run/main_scene="res://Track.tscn"
 config/icon="res://icon.png"
+
+[physics]
+
+3d/smooth_trimesh_collision=true
 
 [rendering]
 

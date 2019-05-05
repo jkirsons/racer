@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Camera.gd" type="Script" id=1]
+[ext_resource path="res://VehicleKinematicBody.gd" type="Script" id=2]
+[ext_resource path="res://Vehicle.gd" type="Script" id=3]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
@@ -8,9 +10,32 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.6, 0.25, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.368627, 0.717647, 0.407843, 1 )
+
+[sub_resource type="PhysicsMaterial" id=3]
+friction = 0.01
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.380392, 0.498039, 0.913725, 1 )
+
 [node name="Spatial" type="Spatial"]
 
-[node name="CSGPolygon" type="CSGPolygon" parent="."]
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.708 )
+script = ExtResource( 1 )
+target_object = NodePath("../KinematicBody")
+target_distance = 5.0
+target_height = 0.5
+
+[node name="Track" type="Spatial" parent="."]
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Track"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0183887, -0.0142336, 0.0119038 )
+use_collision = true
 invert_faces = true
 polygon = PoolVector2Array( -2.45254, 0.330758, 2.41928, 0.331314, 2.70673, 0.737621, 2.79373, 1.34373, 3.61978, 1.35037, 3.62783, -0.0312879, -3.6994, 0.0249678, -3.69142, 1.35935, -2.96263, 1.3597, -2.82, 0.686294 )
 mode = 2
@@ -18,16 +43,40 @@ path_node = NodePath("../Path")
 path_interval = 8.552
 path_rotation = 2
 path_local = false
-path_continuous_u = false
+path_continuous_u = true
 path_joined = true
 
-[node name="Path" type="Path" parent="."]
+[node name="Path" type="Path" parent="Track"]
 curve = SubResource( 1 )
 
-[node name="CSGPolygon2" type="CSGPolygon" parent="."]
+[node name="CSGPolygon2" type="CSGPolygon" parent="Track"]
 polygon = PoolVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.2411, -0.0360629, 5.73395, 3.32978, 5.31322, 5.28918, 3.49807, 6.1066, -0.0240415, 5.12089, -0.0240415, 4.45974, 3.32978, 2.93309, 4.76026, -0.0240415, 5.06078, -2.64459, 4.56793, -4.39964, 2.98117, -4.97664, 1.4013e-45 )
 depth = 42.763
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.708 )
-script = ExtResource( 1 )
+[node name="KinematicBody" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6489, 2.60575, 2.44772 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+shape = SubResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="KinematicBody/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.76846, 0 )
+width = 1.2
+height = 0.5
+material = SubResource( 4 )
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.558687, 2.60575, 2.44772 )
+mass = 10.0
+physics_material_override = SubResource( 3 )
+can_sleep = false
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="RigidBody/CollisionShape"]
+width = 1.2
+height = 0.5
+material = SubResource( 5 )
