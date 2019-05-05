@@ -19,7 +19,7 @@ albedo_color = Color( 0.368627, 0.717647, 0.407843, 1 )
 [node name="Spatial" type="Spatial"]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.988609, -0.123289, 0.0863276, 0, 0.573576, 0.819152, -0.150508, -0.809821, 0.567043, 0, 0, 0 )
+transform = Transform( 0.999866, -0.0134175, 0.00939503, 0, 0.573576, 0.819152, -0.0163797, -0.819042, 0.573499, 0, 0, 0 )
 light_color = Color( 0.866667, 0.866667, 0.866667, 1 )
 shadow_enabled = true
 
@@ -56,8 +56,11 @@ polygon = PoolVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.
 depth = 42.763
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.053, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
 script = ExtResource( 3 )
+max_speed = 100.0
+max_steering = 1.0
+steering_speed = 3.0
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 shape = SubResource( 2 )
@@ -66,3 +69,7 @@ shape = SubResource( 2 )
 width = 1.2
 height = 0.5
 material = SubResource( 3 )
+
+[node name="Camera" type="Camera" parent="KinematicBody"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.63806, 0, 0 )
+visible = false

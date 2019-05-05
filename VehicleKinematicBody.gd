@@ -4,24 +4,23 @@ extends KinematicBody
 
 var speed = 0.0
 var steering = 0.0
-onready var aabb = get_node("CollisionShape/CSGBox").get_aabb()
-export var acceleration = 200.0
-export var friction_deceleration = 20.0
-export var max_speed = 2000.0
+export var acceleration = 20.0
+export var friction_deceleration = 2.0
+export var max_speed = 200.0
 export var max_steering =  PI / 2 # radians
 export var steering_speed = 1.0
-export var steering_vector = Vector3.ZERO
+export var hover_height = 1
 
+export var velocity_vector : Vector3
+export var basis : Basis
+
+onready var aabb = get_node("CollisionShape/CSGBox").get_aabb()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func _physics_process(delta):
+func _physics_process(delta):	
 	# speed
 	if Input.is_action_pressed("ui_up") && speed < max_speed :
 		speed = speed + acceleration * delta
@@ -40,14 +39,34 @@ func _physics_process(delta):
 		steering += steering_speed * delta
 	elif steering != 0:
 		if steering > 0:
-			steering -= min(steering, steering_speed * delta)
+			steering -= min(steering, steering_speed * delta*2)
 		else:
-			steering += min(steering * -1, steering_speed * delta)
+			steering += min(steering * -1, steering_speed * delta*2)
 
+	
+	# gravity
+	var grav_vector = Vector3.ZERO
+	var space_state = get_world().direct_space_state
+	var from = global_transform.origin + aabb.position
+	var to = global_transform.origin + aabb.position + global_transform.basis.y * -hover_height
+	var coll = space_state.intersect_ray(from, to, [self])
+	if !coll:
+		grav_vector = Vector3(0, -10, 0)
+	var rot = global_transform.basis.get_rotation_quat()
+	move_and_slide(rot.xform(grav_vector))
+		
 	# apply speed/steering
-	var rot = transform.basis.get_rotation_quat()
-	transform.basis = transform.basis.rotated(transform.basis.y, -steering * delta)
-	#steering_vector = Vector3(steering,0,0)
-	move_and_slide(rot.xform(Vector3(0.0, 0.0, speed*delta*-1)) )
+	global_transform.basis = global_transform.basis.rotated(global_transform.basis.y, -steering * delta)
+	rot = global_transform.basis.get_rotation_quat()
+	
+	velocity_vector = move_and_slide(rot.xform(Vector3(0.0, 0.0, speed * -1)))
+	velocity_vector.y = 0
+	if velocity_vector.normalized() != Vector3.ZERO:
+		global_transform.basis = Basis( velocity_vector.normalized().cross(Vector3.UP), Vector3.UP, velocity_vector.normalized())
+		basis = global_transform.basis 
+	
+
+	
+	
 	
 	
