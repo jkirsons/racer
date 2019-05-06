@@ -61,6 +61,7 @@ func _physics_process(delta):
 	
 	velocity_vector = move_and_slide(rot.xform(Vector3(0.0, 0.0, speed * -1)))
 	velocity_vector.y = 0
+	# if we have collided, then turn towards direction of collision
 	if velocity_vector.normalized() != Vector3.ZERO:
 		global_transform.basis = Basis( velocity_vector.normalized().cross(Vector3.UP), Vector3.UP, velocity_vector.normalized())
 		basis = global_transform.basis 
