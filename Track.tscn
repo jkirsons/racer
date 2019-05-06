@@ -58,7 +58,6 @@ depth = 42.763
 [node name="KinematicBody" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
 script = ExtResource( 3 )
-max_speed = 100.0
 max_steering = 1.0
 steering_speed = 3.0
 
