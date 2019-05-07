@@ -19,6 +19,10 @@ config/name="racer"
 run/main_scene="res://Track.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "my-addon" )
+
 [rendering]
 
 quality/depth/hdr=false
