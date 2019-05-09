@@ -10,9 +10,11 @@ func _init():
     create_handle_material("handles")
 
 func has_gizmo(spatial):
-    return spatial is MyCustomSpatial
+	print(str(spatial))
+	return spatial is MyCustomSpatial
 
 func redraw(gizmo):
+	print("draw")
 	gizmo.clear()
 	var spatial = gizmo.get_spatial_node()
 	
@@ -26,7 +28,7 @@ func redraw(gizmo):
 		lines.push_back(pos)
 		lines.push_back(pos+Vector3(0, 5, 0))
 		handles.push_back(pos+Vector3(0, 5, 0))
-	
+	print("add")
 	gizmo.add_lines(lines, get_material("main", gizmo), false)
 	gizmo.add_handles(handles, get_material("handles", gizmo))
 
@@ -42,18 +44,18 @@ func get_handle_value( gizmo, index ):
 
 func set_handle ( gizmo, index, camera, point ):
 	gizmo.set_hidden( false )
-	
-	var p = Plane( gizmo.get_spatial_node().global_transform.origin, 
-			gizmo.get_spatial_node().global_transform.origin + gizmo.get_spatial_node().global_transform.basis.x,
-			gizmo.get_spatial_node().global_transform.origin + gizmo.get_spatial_node().global_transform.basis.y)
+	var gt = gizmo.get_spatial_node().global_transform
+	var p = Plane( gt.origin, gt.origin + gt.basis.x, gt.origin + gt.basis.y)
 	var intersect = p.intersects_ray(camera.project_ray_origin(point),
 		camera.project_ray_normal(point))
-	print("set value " + str(intersect)) 
-	print("index " + str(index))
+	print("ray: "+str(camera.project_ray_origin(point)) + " " + str(camera.project_ray_normal(point)))
+	print("plane: " + str(p)) 
+		
+	var intersect_local = intersect - gt.origin 
+	print("intersect: " + str(intersect)) 
+	print("index: " + str(index))
 	var spatial = gizmo.get_spatial_node()
-	spatial.get_node("Path").curve.set_point_tilt(index, intersect.angle_to((
-		gizmo.get_spatial_node().global_transform.origin 
-		+ gizmo.get_spatial_node().global_transform.basis.y)))
+	spatial.get_node("Path").curve.set_point_tilt(index, intersect_local.angle_to(Vector3.UP) * -intersect_local.normalized().x)
 	
 # you should implement the rest of handle-related callbacks
 # (get_handle_name(), get_handle_value(), commit_handle()...)

@@ -1,5 +1,7 @@
 extends Spatial
 
+class_name PathRotation
+
 export var points : PoolVector3Array
 export var tilt : PoolRealArray
 export var up : PoolVector3Array
