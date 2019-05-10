@@ -15,7 +15,6 @@ func has_gizmo(spatial):
 	return spatial is MyCustomSpatial
 
 func redraw(gizmo):
-	print("draw")
 	gizmo.clear()
 	var spatial = gizmo.get_spatial_node()
 	var curve = spatial.get_node("Path").curve
@@ -26,15 +25,17 @@ func redraw(gizmo):
 
 	for n in range(0,curve.get_point_count()):
 		var pos = curve.get_point_position(n)
+		#if curve.get_point_out(n) != curve.get_point_position(n):
+		var handle_pos = Vector3(0, 5, 0).rotated(curve.get_point_out(n).normalized(), -curve.get_point_tilt(n))
 		lines.push_back(pos)
-		lines.push_back(pos+Vector3(0, 5, 0))
+		lines.push_back(pos+handle_pos)
 		lines.push_back(pos)
-		lines.push_back(pos+curve.get_point_in(n))
+		lines.push_back(pos+curve.get_point_in(n).normalized()*5)
 		lines.push_back(pos)
-		lines.push_back(pos+curve.get_point_out(n))
+		lines.push_back(pos+curve.get_point_out(n).normalized()*5)
 		lines2.push_back(pos)
-		lines2.push_back(pos + curve.get_point_out(n).cross(Vector3.UP))
-		handles.push_back(pos+Vector3(0, 5, 0))
+		lines2.push_back(pos + curve.get_point_out(n).normalized().cross(Vector3.UP)*5)
+		handles.push_back(pos+handle_pos)
 	gizmo.add_lines(lines, get_material("main", gizmo), false)
 	gizmo.add_lines(lines2, get_material("secondary", gizmo), false)
 	gizmo.add_handles(handles, get_material("handles", gizmo))
@@ -54,23 +55,18 @@ func set_handle ( gizmo, index, camera, point ):
 	var spatial = gizmo.get_spatial_node()
 	var curve = spatial.get_node("Path").curve
 	var pos = curve.get_point_position(index)
+	var cross = curve.get_point_out(index).cross(Vector3.UP)
 	
-	var p = Plane( pos, 
-		pos + curve.get_point_out(index).cross(Vector3.UP), 
-		pos + Vector3.UP )
+	var p = Plane( pos, pos + cross, pos + Vector3.UP )
 	var intersect = p.intersects_ray(camera.project_ray_origin(point),
 		camera.project_ray_normal(point))
-	print("ray: "+str(camera.project_ray_origin(point)) 
-		+ " " + str(camera.project_ray_normal(point)))
-	print("plane: " + str(p)) 
 	
 	var intersect_local = intersect - pos
-	print("intersect: " + str(intersect)) 
-	print("intersect local: " + str(intersect_local))
 
 	spatial.get_node("Path").curve.set_point_tilt(index, 
 		intersect_local.angle_to(Vector3.UP) 
-		* (intersect_local).normalized().x)  # give the angle a sign
+		* -sign(intersect_local.dot(cross)))  # give the angle a sign
 	
+	redraw(gizmo)
 # you should implement the rest of handle-related callbacks
 # (get_handle_name(), get_handle_value(), commit_handle()...)
