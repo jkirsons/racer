@@ -25,16 +25,24 @@ func redraw(gizmo):
 
 	for n in range(0,curve.get_point_count()):
 		var pos = curve.get_point_position(n)
-		#if curve.get_point_out(n) != curve.get_point_position(n):
-		var handle_pos = Vector3(0, 5, 0).rotated(curve.get_point_out(n).normalized(), -curve.get_point_tilt(n))
+		var forward = curve.get_point_out(n)
+		
+		# no forward handle
+		if forward == Vector3(0, 0, 0):
+			if n+1 < curve.get_point_count():
+				forward = curve.get_point_position(n+1)
+			else:
+				forward = curve.get_point_position(0)
+		
+		var handle_pos = Vector3(0, 5, 0).rotated(forward.normalized(), -curve.get_point_tilt(n))
 		lines.push_back(pos)
 		lines.push_back(pos+handle_pos)
+		#lines.push_back(pos)
+		#lines.push_back(pos+curve.get_point_in(n).normalized()*5)
 		lines.push_back(pos)
-		lines.push_back(pos+curve.get_point_in(n).normalized()*5)
-		lines.push_back(pos)
-		lines.push_back(pos+curve.get_point_out(n).normalized()*5)
+		lines.push_back(pos+forward.normalized()*5)
 		lines2.push_back(pos)
-		lines2.push_back(pos + curve.get_point_out(n).normalized().cross(Vector3.UP)*5)
+		lines2.push_back(pos + forward.normalized().cross(Vector3.UP)*5)
 		handles.push_back(pos+handle_pos)
 	gizmo.add_lines(lines, get_material("main", gizmo), false)
 	gizmo.add_lines(lines2, get_material("secondary", gizmo), false)
@@ -54,8 +62,17 @@ func get_handle_value( gizmo, index ):
 func set_handle ( gizmo, index, camera, point ):
 	var spatial = gizmo.get_spatial_node()
 	var curve = spatial.get_node("Path").curve
+	
+	var forward = curve.get_point_out(index)
+	# no forward handle
+	if forward == Vector3(0, 0, 0):
+		if index+1 < curve.get_point_count():
+			forward = curve.get_point_position(index+1)
+		else:
+			forward = curve.get_point_position(0)
+	
 	var pos = curve.get_point_position(index)
-	var cross = curve.get_point_out(index).cross(Vector3.UP)
+	var cross = forward.cross(Vector3.UP)
 	
 	var p = Plane( pos, pos + cross, pos + Vector3.UP )
 	var intersect = p.intersects_ray(camera.project_ray_origin(point),
