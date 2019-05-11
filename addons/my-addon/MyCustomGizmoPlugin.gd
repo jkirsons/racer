@@ -2,6 +2,9 @@ extends EditorSpatialGizmoPlugin
 
 const MyCustomSpatial = preload("res://PathRotation.gd")
 
+func get_curve(spatial):
+	return spatial.get_node("Path").curve
+
 func get_name():
 	return "CustomNode"
 
@@ -11,13 +14,27 @@ func _init():
 	create_handle_material("handles")
 
 func has_gizmo(spatial):
-	print(str(spatial))
+	if spatial is MyCustomSpatial:
+		print("Match: "+str(spatial))
+	else:
+		print("No Match: "+str(spatial))
 	return spatial is MyCustomSpatial
+
+func get_forward(curve, index):
+	# Gets the forward vector of a curve index
+	# Handles nodes with no in/out handles
+	var forward = curve.get_point_out(index)
+	if forward == Vector3(0, 0, 0):
+		if index < curve.get_point_count()-1:
+			forward = curve.get_point_position(index+1) - curve.get_point_position(index) 
+		else:
+			forward = curve.get_point_position(0) - curve.get_point_position(index)
+	return forward
 
 func redraw(gizmo):
 	gizmo.clear()
 	var spatial = gizmo.get_spatial_node()
-	var curve = spatial.get_node("Path").curve
+	var curve = get_curve(spatial)
 	
 	var lines = PoolVector3Array()
 	var lines2 = PoolVector3Array()
@@ -25,20 +42,11 @@ func redraw(gizmo):
 
 	for n in range(0,curve.get_point_count()):
 		var pos = curve.get_point_position(n)
-		var forward = curve.get_point_out(n)
-		
-		# no forward handle
-		if forward == Vector3(0, 0, 0):
-			if n+1 < curve.get_point_count():
-				forward = curve.get_point_position(n+1)
-			else:
-				forward = curve.get_point_position(0)
+		var forward  = get_forward(curve, n)
 		
 		var handle_pos = Vector3(0, 5, 0).rotated(forward.normalized(), -curve.get_point_tilt(n))
 		lines.push_back(pos)
 		lines.push_back(pos+handle_pos)
-		#lines.push_back(pos)
-		#lines.push_back(pos+curve.get_point_in(n).normalized()*5)
 		lines.push_back(pos)
 		lines.push_back(pos+forward.normalized()*5)
 		lines2.push_back(pos)
@@ -48,31 +56,21 @@ func redraw(gizmo):
 	gizmo.add_lines(lines2, get_material("secondary", gizmo), false)
 	gizmo.add_handles(handles, get_material("handles", gizmo))
 
-func commit_handle ( gizmo, index, restore, cancel=false):
-	print("commit")
-
+func get_handle_name( gizmo, index ):
+	return index
+	
 func get_handle_value( gizmo, index ):
 	var spatial = gizmo.get_spatial_node()
-	var tilt = spatial.get_node("Path").curve.get_point_tilt(index)
-	return tilt
-	#return (gizmo.get_spatial_node().global_transform.origin 
-	#	+ gizmo.get_spatial_node().global_transform.basis.y).rotated(Vector3.FORWARD,tilt)
-	#print("get value") 
+	return get_curve(spatial).get_point_tilt(index)
 
 func set_handle ( gizmo, index, camera, point ):
 	var spatial = gizmo.get_spatial_node()
-	var curve = spatial.get_node("Path").curve
+	var curve = get_curve(spatial)
 	
-	var forward = curve.get_point_out(index)
-	# no forward handle
-	if forward == Vector3(0, 0, 0):
-		if index+1 < curve.get_point_count():
-			forward = curve.get_point_position(index+1)
-		else:
-			forward = curve.get_point_position(0)
+	var forward = get_forward(curve, index)
+	var cross = forward.cross(Vector3.UP)
 	
 	var pos = curve.get_point_position(index)
-	var cross = forward.cross(Vector3.UP)
 	
 	var p = Plane( pos, pos + cross, pos + Vector3.UP )
 	var intersect = p.intersects_ray(camera.project_ray_origin(point),
@@ -80,7 +78,7 @@ func set_handle ( gizmo, index, camera, point ):
 	
 	var intersect_local = intersect - pos
 
-	spatial.get_node("Path").curve.set_point_tilt(index, 
+	curve.set_point_tilt(index, 
 		intersect_local.angle_to(Vector3.UP) 
 		* -sign(intersect_local.dot(cross)))  # give the angle a sign
 	
