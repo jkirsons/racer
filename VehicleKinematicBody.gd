@@ -68,10 +68,12 @@ func get_gravity(delta):
 	var grav_vector = Vector3.ZERO
 	var space_state = get_world().direct_space_state
 	var from = global_transform.origin + aabb.position
-	var to = global_transform.origin + aabb.position + global_transform.basis.y * -hover_height
+	var to = global_transform.origin + aabb.position + global_transform.basis.y * -(hover_height + 4)
 	var coll = space_state.intersect_ray(from, to, [self])
 	if !coll:
-		grav_vector = Vector3(0, -10, 0)
+		grav_vector = Vector3(0, -400.0 * delta, 0)
+	else:
+		grav_vector = Vector3(0, 100.0 * delta * (hover_height  - from.distance_to(coll["position"])), 0)
 	
 	return grav_vector
 	#return global_transform.basis.get_rotation_quat().xform(grav_vector) 
