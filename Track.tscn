@@ -68,7 +68,7 @@ polygon = PoolVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.
 depth = 42.763
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 3.84801, 0 )
 script = ExtResource( 4 )
 max_steering = 1.0
 steering_speed = 3.0
@@ -81,9 +81,3 @@ shape = SubResource( 2 )
 width = 1.2
 height = 0.5
 material = SubResource( 3 )
-
-[node name="Camera" type="Camera" parent="KinematicBody"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.63806, 0, 0 )
-visible = false
-
-[node name="ImmediateGeometry" type="ImmediateGeometry" parent="KinematicBody"]
