@@ -27,12 +27,8 @@ func _physics_process(delta):
 	var ground_normal = get_gravity(delta)
 		
 
-	global_transform.basis = global_transform.basis.rotated(global_transform.basis.y, -steering * delta)
-	
-	# Project the normal onto a plane of the Z axis
-	
 	# apply steering
-	#global_transform.basis = global_transform.basis.rotated(global_transform.basis.y, -steering * delta)
+	global_transform.basis = global_transform.basis.rotated(global_transform.basis.y, -steering * delta)
 	
 	# apply speed
 	var rot = global_transform.basis.get_rotation_quat()	
@@ -41,20 +37,25 @@ func _physics_process(delta):
 	# Project the normal onto a plane of the Y axis
 	var p_z = Plane(global_transform.basis.z,0)
 	var rot_vec_y = p_z.project(ground_normal.normalized())
-	var z_rotation_angle = global_transform.basis.y.angle_to(rot_vec_y) * sign(global_transform.basis.x.dot(rot_vec_y))
+	var z_rotation_angle = -global_transform.basis.y.angle_to(rot_vec_y) * sign(global_transform.basis.x.dot(rot_vec_y))
 	global_transform.basis = global_transform.basis.rotated(global_transform.basis.z, z_rotation_angle)
 	
-	if velocity_vector.normalized() != Vector3.ZERO:
-#		var p_x = Plane(global_transform.basis.x,0)
-#		var rot_vec_z = p_x.project(velocity_vector.normalized())
-#		var x_rotation_angle = global_transform.basis.z.angle_to(rot_vec_z) * sign(global_transform.basis.y.dot(rot_vec_z))
-#		global_transform.basis = global_transform.basis.rotated(global_transform.basis.x, x_rotation_angle)
-
-		var p_y = Plane(global_transform.basis.y,0)
-		var rot_vec_x = p_y.project(velocity_vector.normalized())
-		var y_rotation_angle = global_transform.basis.x.angle_to(rot_vec_x) * sign(global_transform.basis.z.dot(rot_vec_x))
-		global_transform.basis = global_transform.basis.rotated(global_transform.basis.y, y_rotation_angle)
+	#print(str(global_transform.basis.y) + " / " + str(ground_normal.normalized()) + " - " + str(rot_vec_y) + " : " + str(z_rotation_angle))
 	
+	# Project forward vector onto ground normal plane
+	var p_x = Plane(ground_normal.normalized(), 0)
+	var rot_vec_z = p_x.project(global_transform.basis.z)
+	var x_rotation_angle = -global_transform.basis.z.angle_to(rot_vec_z) * sign(global_transform.basis.y.dot(rot_vec_z))
+	global_transform.basis = global_transform.basis.rotated(global_transform.basis.x, x_rotation_angle)
+	
+	velocity_vector.y = 0
+	if velocity_vector != Vector3.ZERO:
+		var p_y = Plane(-global_transform.basis.y,0)
+		var rot_vec_x = p_y.project(velocity_vector.normalized())
+		var y_rotation_angle = -global_transform.basis.z.angle_to(rot_vec_x) * sign(global_transform.basis.z.dot(rot_vec_x))
+		#global_transform.basis = global_transform.basis.rotated(global_transform.basis.y, y_rotation_angle)
+		print(str(global_transform.basis.y))
+		print(str(global_transform.basis.z) + " / " + str(velocity_vector) + " - " + str(rot_vec_x) + " : " + str(y_rotation_angle))
 		
 	# if we have collided, then turn towards direction of collision
 	# Project the velocity vector onto a plane of the X axis
