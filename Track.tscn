@@ -1,21 +1,28 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://default_env.tres" type="Environment" id=1]
 [ext_resource path="res://Camera.gd" type="Script" id=2]
 [ext_resource path="res://PathRotation.gd" type="Script" id=3]
-[ext_resource path="res://VehicleKinematicBody.gd" type="Script" id=4]
-[ext_resource path="res://ship.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://PathSegment.gd" type="Script" id=4]
+[ext_resource path="res://VehicleKinematicBody.gd" type="Script" id=5]
+[ext_resource path="res://ship.obj" type="ArrayMesh" id=6]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.52411, -0.43157, -4.50141, 0, 0, 0, 0, 0, 0, -0.271008, 0.977621, -97.4595, -0.826168, 4.57764e-05, 14.622, 0.826168, -4.57764e-05, -14.622, -0.420597, 1.33719, -133.355, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 253.794, 0, -93.2747, 1.85904, -4.57764e-05, -9.8012, -1.85904, 4.57764e-05, 9.8012, 251.625, 0, -47.1796, 11.7695, 7.62939e-05, -10.391, -11.7695, -7.62939e-05, 10.391, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463, 14.282, 5.72205e-05, -0.715376, -14.282, -5.72205e-05, 0.715376, -112.074, 8.68314, -0.295872, 23.8773, 6.10352e-05, -12.6653, -23.8773, -6.10352e-05, 12.6653, -185.334, 3.04282e-05, 8.34954, 3.64426, 4.57764e-05, -7.7109, -3.64426, -4.57764e-05, 7.7109, -222.341, 0, 56.941, 0.277573, 0.000427246, -11.8295, -0.277573, -0.000427246, 11.8295, -229.391, 0, 122.559, -6.8956, 0.00038147, -11.078, 6.8956, -0.00038147, 11.078, -216.918, 0, 174.077, -11.2253, -1.52588e-05, -5.66435, 11.2253, 1.52588e-05, 5.66435, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -16.5759, -7.62939e-05, 5.28885, 16.5759, 7.62939e-05, -5.28885, -20.6072, -3.05176e-05, 224.51, -2.36621, 0, 7.86801, 2.36621, 0, -7.86801, 2.06786, 0.578568, 192.29, 0, 0, 0, 0, 0, 0, 1.08458, -3.05176e-05, 132.862, 0, 0, 0, 0, 0, 0, 0.678744, -1.74652e-05, 76.095, 0, 0, 0, 0, 0, 0, -1.47702, -0.330202, 8.75581 ),
-"tilts": PoolRealArray( 0.0784849, -0.0127946, -0.548445, -0.567794, -0.874668, -0.689488, -0.618292, -0.645162, -0.32929, 0, 0.0856274, 0.468984, 0.325562, 0, 0, 0, 0, 0, 0.735957, 0.219433, 0.289556, -0.0598923 )
+"tilts": PoolRealArray( -0.0572634, -0.0127946, -0.548445, -0.567794, -0.612034, -0.689488, -0.618292, -0.645162, -0.32929, 0, 0.0856274, 0.468984, 0.325562, 0, 0, 0, 0, 0, 0.735957, 0.219433, 0.289556, -0.0598923 )
+}
+
+[sub_resource type="Curve3D" id=5]
+_data = {
+"points": PoolVector3Array( -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 253.794, 0, -93.2747, 1.85904, -4.57764e-05, -9.8012, -1.85904, 4.57764e-05, 9.8012, 251.625, 0, -47.1796, 11.7695, 7.62939e-05, -10.391, -11.7695, -7.62939e-05, 10.391, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463 ),
+"tilts": PoolRealArray( -0.689488, -0.618292, -0.645162, -0.32929, 0 )
 }
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.6, 0.25, 1 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.972549, 0.0352941, 0.0352941, 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
@@ -29,61 +36,74 @@ light_color = Color( 0.866667, 0.866667, 0.866667, 1 )
 shadow_enabled = true
 directional_shadow_mode = 1
 
-[node name="DirectionalLight2" type="DirectionalLight" parent="."]
-transform = Transform( 0.999866, -0.0134175, 0.009395, 0, 0.573576, 0.819152, -0.0163797, -0.819042, 0.573499, 0, 11.4566, 0 )
-visible = false
-light_color = Color( 0.866667, 0.866667, 0.866667, 1 )
-light_energy = 0.19
-light_specular = 0.3
-shadow_enabled = true
-
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.708 )
 environment = ExtResource( 1 )
 current = true
+far = 300.0
 script = ExtResource( 2 )
-target_object = NodePath("../KinematicBody")
+target_object = NodePath("../Vehicle")
 target_distance = 5.0
 target_height = 0.5
 
 [node name="Track" type="Spatial" parent="."]
 script = ExtResource( 3 )
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Track"]
+[node name="Path" type="Path" parent="Track"]
+curve = SubResource( 1 )
+
+[node name="TrackMesh" type="CSGPolygon" parent="Track/Path"]
 use_collision = true
 invert_faces = true
 polygon = PoolVector2Array( -2.45254, 0.330758, 2.41928, 0.331314, 2.70673, 0.737621, 2.79373, 1.34373, 3.61978, 1.35037, 3.62783, -0.0312879, -3.6994, 0.0249678, -3.69142, 1.35935, -2.96263, 1.3597, -2.82, 0.686294 )
 mode = 2
-path_node = NodePath("../Path")
-path_interval = 2.318
+path_node = NodePath("..")
+path_interval = 5.0
 path_rotation = 2
 path_local = false
 path_continuous_u = true
 path_joined = true
 
-[node name="Path" type="Path" parent="Track"]
-curve = SubResource( 1 )
-
-[node name="CSGPolygon2" type="CSGPolygon" parent="Track"]
+[node name="Semi-Circle" type="CSGPolygon" parent="Track"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33179, -1.11458, -26.7052 )
 polygon = PoolVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.2411, -0.0360629, 5.73395, 3.32978, 5.31322, 5.28918, 3.49807, 6.1066, -0.0240415, 5.12089, -0.0240415, 4.45974, 3.32978, 2.93309, 4.76026, -0.0240415, 5.06078, -2.64459, 4.56793, -4.39964, 2.98117, -4.97664, 1.4013e-45 )
 depth = 42.763
 
-[node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 3.84801, 5.16239 )
+[node name="PathSegment" type="Path" parent="Track"]
+curve = SubResource( 5 )
 script = ExtResource( 4 )
+parent_path = NodePath("../Path")
+start_node = 5
+length = 5
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/PathSegment"]
+invert_faces = true
+polygon = PoolVector2Array( -2.25718, 0.105676, -3.6574, 1.11843, -5.299, 3.4157, -5.68309, 6.08662, -6.5765, 6.05507, -6.2542, 3.37551, -4.4227, 0.745617, -2.38613, -0.59369 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 5.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
+
+[node name="Vehicle" type="KinematicBody" parent="."]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 3.84801, 5.16239 )
+script = ExtResource( 5 )
 max_steering = 1.0
 steering_speed = 3.0
 
-[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Vehicle"]
+editor/display_folded = true
 shape = SubResource( 2 )
 
-[node name="ship" type="MeshInstance" parent="KinematicBody/CollisionShape"]
+[node name="ship" type="MeshInstance" parent="Vehicle/CollisionShape"]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, -0.3, 0, 0, 0 )
-mesh = ExtResource( 5 )
-material/0 = SubResource( 5 )
+mesh = ExtResource( 6 )
+material/0 = SubResource( 3 )
 
-[node name="CSGBox" type="CSGBox" parent="KinematicBody/CollisionShape"]
+[node name="CSGBox" type="CSGBox" parent="Vehicle/CollisionShape"]
 visible = false
 width = 1.2
 height = 0.5

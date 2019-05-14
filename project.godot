@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "PathRotation",
 "language": "GDScript",
 "path": "res://PathRotation.gd"
+}, {
+"base": "Path",
+"class": "PathSegment",
+"language": "GDScript",
+"path": "res://PathSegment.gd"
 } ]
 _global_script_class_icons={
-"PathRotation": ""
+"PathRotation": "",
+"PathSegment": ""
 }
 
 [application]
