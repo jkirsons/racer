@@ -4,12 +4,16 @@ extends KinematicBody
 
 var speed = 0.0
 var steering = 0.0
-export var acceleration = 20.0
+
+export var acceleration = 10.0
 export var friction_deceleration = 2.0
-export var max_speed = 100.0
+export var max_speed = 60.0
+
 export var max_steering =  PI / 2 # radians
 export var steering_speed = 1.0
-export var hover_height = 0.8
+export var steering_roll = 0.3
+
+export var hover_height = 0.3
 
 export var gravity_acc = 10.0
 export var hover_acc = 6
@@ -18,7 +22,10 @@ export var roll_speed = 4;
 export var pitch_speed = 12;
 export var yaw_speed = 8;
 
-onready var aabb = get_node("CollisionShape/CSGBox").get_aabb()
+export var collision_speed_decrease = 10
+
+onready var aabb = get_node("CollisionShape/ship").get_aabb()
+onready var initial_pos = get_node("CollisionShape/ship").global_transform.origin
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,14 +41,18 @@ func _physics_process(delta):
 	# apply speed
 	var velocity_vector = move_and_slide(global_transform.basis.xform(Vector3(0.0, 0.0, speed * -1)))
 	
+	# Roll
 	# Project the normal onto a plane of the Y axis
 	var p_z = Plane(global_transform.basis.z,0)
 	var rot_vec_y = p_z.project(ground_normal.normalized())
+	# add steering roll
+	rot_vec_y = rot_vec_y.rotated(global_transform.basis.z, -steering * steering_roll) 
 	var z_rotation_angle = -global_transform.basis.y.angle_to(rot_vec_y) * sign(global_transform.basis.x.dot(rot_vec_y))
 	global_transform.basis = global_transform.basis.orthonormalized().slerp( 
 		global_transform.basis.rotated(global_transform.basis.z.normalized(), z_rotation_angle),
 		delta * roll_speed)
-		
+	
+	# Yaw
 	# Project forward vector onto ground normal plane
 	var p_x = Plane(ground_normal.normalized(), 0)
 	var rot_vec_z = p_x.project(global_transform.basis.z)
@@ -49,9 +60,10 @@ func _physics_process(delta):
 	global_transform.basis = global_transform.basis.orthonormalized().slerp( 
 		global_transform.basis.rotated(global_transform.basis.x.normalized(), x_rotation_angle),
 		delta * pitch_speed)
-		
+	
+	# Pitch
 	# if we have collided, then turn towards direction of collision
-	#velocity_vector.y = 0
+	# velocity_vector.y = 0
 	var y_rotation_angle = 0
 	if velocity_vector != Vector3.ZERO:
 		var p_y = Plane(global_transform.basis.y,0)
@@ -60,6 +72,9 @@ func _physics_process(delta):
 		global_transform.basis = global_transform.basis.orthonormalized().slerp( 
 			global_transform.basis.rotated(global_transform.basis.y.normalized(), y_rotation_angle),
 			delta * yaw_speed)
+		if speed > collision_speed_decrease and abs(y_rotation_angle) > 0.1:
+			speed -= collision_speed_decrease * abs(y_rotation_angle)
+			print("Collision: " + str(collision_speed_decrease * abs(y_rotation_angle)))
 
 func process_input(delta):
 		# speed
@@ -85,17 +100,15 @@ func process_input(delta):
 			steering += min(steering * -1, steering_speed * delta*2)
 	
 func get_gravity(delta): 
-	var height_offset = Vector3(0,0.1,0)
+	var height_offset = Vector3(0, 0.1,0)
+	var aabb_y = Vector3(0, aabb.position.y/2, 0)
 	var ray_points = Array()
-	ray_points.push_back( global_transform.origin + aabb.position + height_offset)
-	ray_points.push_back( global_transform.origin + aabb.position + aabb.size.x * Vector3(1,0,0) + height_offset)
-	ray_points.push_back( global_transform.origin + aabb.position + aabb.size.z * Vector3(0,0,1) + height_offset)
-	ray_points.push_back( global_transform.origin + aabb.position + aabb.size.x * Vector3(1,0,0) + aabb.size.z * Vector3(0,0,1) + height_offset)
+	
+	# ray points down centre line
+	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y.normalized()  + height_offset)
+	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y.normalized()  + (aabb.size.z/4) * global_transform.basis.z.normalized() + height_offset)
+	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y.normalized()  - (aabb.size.z/4) * global_transform.basis.z.normalized() + height_offset)
 
-	ray_points.push_back( global_transform.origin + aabb.position + aabb.size.x/2 * Vector3(1,0,0) + height_offset)
-	ray_points.push_back( global_transform.origin + aabb.position + aabb.size.x/2 * Vector3(1,0,0) + aabb.size.z/2 * Vector3(0,0,1) + height_offset)
-	ray_points.push_back( global_transform.origin + aabb.position + aabb.size.x/2 * Vector3(1,0,0) + aabb.size.z * Vector3(0,0,1) + height_offset)
-		
 	var space_state = get_world().direct_space_state
 	
 	# find average distance and normal
@@ -121,4 +134,3 @@ func get_gravity(delta):
 	move_and_slide(grav_vector)
 
 	return normal
-	#return global_transform.basis.get_rotation_quat().xform(grav_vector) 
