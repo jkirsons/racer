@@ -22,11 +22,16 @@ func _process(delta):
 		curve.clear_points()
 		print(parent_curve)
 		for i in range(start_node, (start_node+length)):
+			
 			var point_out = parent_curve.get_point_out(i)
 			if i == start_node+length:
 				point_out = Vector3.ZERO
 			
-			curve.add_point(parent_curve.get_point_position(i), parent_curve.get_point_in(i), point_out)
+			var point_in = parent_curve.get_point_in(i)
+			if i == start_node:
+				point_in = Vector3.ZERO
+			
+			curve.add_point(parent_curve.get_point_position(i), point_in, point_out)
 			curve.set_point_tilt(i-start_node, parent_curve.get_point_tilt(i))
 		
 
