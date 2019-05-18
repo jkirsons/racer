@@ -36,5 +36,6 @@ enabled=PoolStringArray( "my-addon" )
 
 [rendering]
 
+quality/subsurface_scattering/quality=0
 quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"

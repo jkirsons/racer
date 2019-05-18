@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://default_env.tres" type="Environment" id=1]
 [ext_resource path="res://Camera.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://PathSegment.gd" type="Script" id=4]
 [ext_resource path="res://VehicleKinematicBody.gd" type="Script" id=5]
 [ext_resource path="res://ship.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Stripe.png" type="Texture" id=7]
+[ext_resource path="res://red&white.png" type="Texture" id=8]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
@@ -13,19 +15,32 @@ _data = {
 "tilts": PoolRealArray( -0.0572634, -0.0127946, -0.548445, -0.567794, -0.612034, -0.689488, -0.618292, -0.645162, -0.32929, 0, 0.0856274, 0.468984, 0.325562, 0, 0, 0, 0, 0, 0.735957, 0.219433, 0.289556, -0.0598923 )
 }
 
-[sub_resource type="Curve3D" id=5]
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 8 )
+uv1_scale = Vector3( 4.04, 1, 1 )
+
+[sub_resource type="Curve3D" id=8]
 _data = {
-"points": PoolVector3Array( -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 253.794, 0, -93.2747, 1.85904, -4.57764e-05, -9.8012, -1.85904, 4.57764e-05, 9.8012, 251.625, 0, -47.1796, 11.7695, 7.62939e-05, -10.391, -11.7695, -7.62939e-05, 10.391, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463 ),
-"tilts": PoolRealArray( -0.689488, -0.618292, -0.645162, -0.32929, 0 )
+"points": PoolVector3Array( -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 253.794, 0, -93.2747, 1.85904, -4.57764e-05, -9.8012, -1.85904, 4.57764e-05, 9.8012, 251.625, 0, -47.1796, 11.7695, 7.62939e-05, -10.391, -11.7695, -7.62939e-05, 10.391, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463 ),
+"tilts": PoolRealArray( -0.618292, -0.645162, -0.32929, 0 )
 }
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="Curve3D" id=2]
+_data = {
+"points": PoolVector3Array( 23.8773, 6.10352e-05, -12.6653, -23.8773, -6.10352e-05, 12.6653, -185.334, 3.04282e-05, 8.34954, 3.64426, 4.57764e-05, -7.7109, -3.64426, -4.57764e-05, 7.7109, -222.341, 0, 56.941, 0.277573, 0.000427246, -11.8295, -0.277573, -0.000427246, 11.8295, -229.391, 0, 122.559 ),
+"tilts": PoolRealArray( 0.468984, 0.325562, 0 )
+}
+
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.6, 0.25, 1 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0.972549, 0.0352941, 0.0352941, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.368627, 0.717647, 0.407843, 1 )
 
 [node name="Spatial" type="Spatial"]
@@ -34,7 +49,11 @@ albedo_color = Color( 0.368627, 0.717647, 0.407843, 1 )
 transform = Transform( 0.999866, -0.0134175, 0.009395, 0, 0.573576, 0.819152, -0.0163797, -0.819042, 0.573499, 0, 11.6691, 0 )
 light_color = Color( 0.866667, 0.866667, 0.866667, 1 )
 shadow_enabled = true
-directional_shadow_mode = 1
+
+[node name="DirectionalLight2" type="DirectionalLight" parent="."]
+transform = Transform( 0.999866, -0.0134175, 0.009395, 0, 0.573576, 0.819152, -0.0163797, -0.819042, 0.573499, 0, 11.6691, 0 )
+light_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+light_energy = 0.19
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.708 )
@@ -53,6 +72,7 @@ script = ExtResource( 3 )
 curve = SubResource( 1 )
 
 [node name="TrackMesh" type="CSGPolygon" parent="Track/Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.931203, 0, -0.467834 )
 use_collision = true
 invert_faces = true
 polygon = PoolVector2Array( -2.45254, 0.330758, 2.41928, 0.331314, 2.70673, 0.737621, 2.79373, 1.34373, 3.61978, 1.35037, 3.62783, -0.0312879, -3.6994, 0.0249678, -3.69142, 1.35935, -2.96263, 1.3597, -2.82, 0.686294 )
@@ -68,43 +88,62 @@ path_joined = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33179, -1.11458, -26.7052 )
 polygon = PoolVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.2411, -0.0360629, 5.73395, 3.32978, 5.31322, 5.28918, 3.49807, 6.1066, -0.0240415, 5.12089, -0.0240415, 4.45974, 3.32978, 2.93309, 4.76026, -0.0240415, 5.06078, -2.64459, 4.56793, -4.39964, 2.98117, -4.97664, 1.4013e-45 )
 depth = 42.763
+material = SubResource( 7 )
 
 [node name="PathSegment" type="Path" parent="Track"]
-curve = SubResource( 5 )
+curve = SubResource( 8 )
 script = ExtResource( 4 )
 parent_path = NodePath("../Path")
-start_node = 5
-length = 5
+start_node = 6
+length = 4
 
 [node name="CSGPolygon" type="CSGPolygon" parent="Track/PathSegment"]
 invert_faces = true
-polygon = PoolVector2Array( -2.25718, 0.105676, -3.6574, 1.11843, -5.299, 3.4157, -5.68309, 6.08662, -6.5765, 6.05507, -6.2542, 3.37551, -4.4227, 0.745617, -2.38613, -0.59369 )
+polygon = PoolVector2Array( -4.04989, 0.229222, -4.86696, 1.1152, -5.99098, 3.63228, -6.27342, 6.16901, -6.9173, 6.17709, -6.6843, 3.43534, -5.23215, 0.791127, -4.12593, -0.191406 )
 mode = 2
 path_node = NodePath("..")
-path_interval = 5.0
+path_interval = 8.0
 path_rotation = 2
 path_local = false
 path_continuous_u = false
 path_joined = false
+material = SubResource( 3 )
+
+[node name="PathSegment2" type="Path" parent="Track"]
+curve = SubResource( 2 )
+script = ExtResource( 4 )
+parent_path = NodePath("../Path")
+start_node = 11
+length = 3
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/PathSegment2"]
+invert_faces = true
+polygon = PoolVector2Array( 4.05, 0.229, 4.867, 1.115, 5.991, 3.632, 6.273, 6.169, 6.917, 6.177, 6.684, 3.435, 5.232, 0.791, 4.126, -0.191 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 10.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
+material = SubResource( 3 )
 
 [node name="Vehicle" type="KinematicBody" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 3.84801, 5.16239 )
 script = ExtResource( 5 )
 max_steering = 1.0
 steering_speed = 3.0
 
 [node name="CollisionShape" type="CollisionShape" parent="Vehicle"]
-editor/display_folded = true
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="ship" type="MeshInstance" parent="Vehicle/CollisionShape"]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, -0.3, 0, 0, 0 )
 mesh = ExtResource( 6 )
-material/0 = SubResource( 3 )
+material/0 = SubResource( 5 )
 
 [node name="CSGBox" type="CSGBox" parent="Vehicle/CollisionShape"]
 visible = false
 width = 1.2
 height = 0.5
-material = SubResource( 4 )
+material = SubResource( 6 )
