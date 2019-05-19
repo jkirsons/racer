@@ -3,7 +3,7 @@ extends EditorSpatialGizmoPlugin
 const MyCustomSpatial = preload("res://PathRotation.gd")
 
 func get_curve(spatial):
-	return spatial.get_node("Path").curve
+	return spatial.get_node("MainPath").curve
 
 func get_name():
 	return "CustomNode"
