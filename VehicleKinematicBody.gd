@@ -9,9 +9,10 @@ export var acceleration = 10.0
 export var friction_deceleration = 2.0
 export var max_speed = 60.0
 
-export var max_steering =  PI / 2 # radians
-export var steering_speed = 1.0
-export var steering_roll = 0.3
+export var max_steering =  PI / 3 # radians
+export var steering_speed = 4.0
+export var steering_roll = 0.4
+export var steering_center_multiplier = 4
 
 export var hover_height = 0.3
 
@@ -43,9 +44,9 @@ func _physics_process(delta):
 	
 	# Roll
 	# Project the normal onto a plane of the Y axis
+	# - Start with roll from normal of contact point, then add steering roll
 	var p_z = Plane(global_transform.basis.z,0)
 	var rot_vec_y = p_z.project(ground_normal.normalized())
-	# add steering roll
 	rot_vec_y = rot_vec_y.rotated(global_transform.basis.z, -steering * steering_roll) 
 	var z_rotation_angle = -global_transform.basis.y.angle_to(rot_vec_y) * sign(global_transform.basis.x.dot(rot_vec_y))
 	global_transform.basis = global_transform.basis.orthonormalized().slerp( 
@@ -53,7 +54,8 @@ func _physics_process(delta):
 		delta * roll_speed)
 	
 	# Yaw
-	# Project forward vector onto ground normal plane
+	# - Project forward vector onto ground normal plane
+	# - Adjust yaw towards this projection
 	var p_x = Plane(ground_normal.normalized(), 0)
 	var rot_vec_z = p_x.project(global_transform.basis.z)
 	var x_rotation_angle = -global_transform.basis.z.angle_to(rot_vec_z) * sign(global_transform.basis.y.dot(rot_vec_z))
@@ -62,7 +64,7 @@ func _physics_process(delta):
 		delta * pitch_speed)
 	
 	# Pitch
-	# if we have collided, then turn towards direction of collision
+	# - If we have collided, then turn towards direction of collision
 	# velocity_vector.y = 0
 	var y_rotation_angle = 0
 	if velocity_vector != Vector3.ZERO:
@@ -72,6 +74,8 @@ func _physics_process(delta):
 		global_transform.basis = global_transform.basis.orthonormalized().slerp( 
 			global_transform.basis.rotated(global_transform.basis.y.normalized(), y_rotation_angle),
 			delta * yaw_speed)
+		
+		# If we have collided, then slow down 
 		if speed > collision_speed_decrease and abs(y_rotation_angle) > 0.1:
 			speed -= collision_speed_decrease * abs(y_rotation_angle)
 			print("Collision: " + str(collision_speed_decrease * abs(y_rotation_angle)))
@@ -95,22 +99,21 @@ func process_input(delta):
 		steering += steering_speed * delta
 	elif steering != 0:
 		if steering > 0:
-			steering -= min(steering, steering_speed * delta*2)
+			steering -= min(steering, steering_speed * delta * steering_center_multiplier)
 		else:
-			steering += min(steering * -1, steering_speed * delta*2)
+			steering += min(steering * -1, steering_speed * delta * steering_center_multiplier)
 	
 func get_gravity(delta): 
-	var height_offset = Vector3(0, 0.1,0)
-	var aabb_y = Vector3(0, aabb.position.y/2, 0)
+	var space_state = get_world().direct_space_state
+	var height_offset = Vector3(0, 0.1,0) * global_transform.basis.y
+	var aabb_y = Vector3(0, aabb.position.y, 0)
 	var ray_points = Array()
 	
 	# ray points down centre line
-	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y.normalized()  + height_offset)
-	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y.normalized()  + (aabb.size.z/4) * global_transform.basis.z.normalized() + height_offset)
-	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y.normalized()  - (aabb.size.z/4) * global_transform.basis.z.normalized() + height_offset)
+	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  - (aabb.size.z/2) * global_transform.basis.z + height_offset)
+	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + height_offset)
+	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + (aabb.size.z/2) * global_transform.basis.z + height_offset)
 
-	var space_state = get_world().direct_space_state
-	
 	# find average distance and normal
 	var contact_points = 0
 	var normal = Vector3.ZERO
