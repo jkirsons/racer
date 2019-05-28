@@ -27,6 +27,8 @@ export var collision_speed_decrease = 10
 
 onready var aabb = get_node("CollisionShape/ship").get_aabb()
 onready var initial_pos = get_node("CollisionShape/ship").global_transform.origin
+onready var ship_model = get_node("CollisionShape/ship")
+onready var initial_basis = get_node("CollisionShape/ship").global_transform.basis
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,10 +49,14 @@ func _physics_process(delta):
 	# - Start with roll from normal of contact point, then add steering roll
 	var p_z = Plane(global_transform.basis.z,0)
 	var rot_vec_y = p_z.project(ground_normal.normalized())
-	rot_vec_y = rot_vec_y.rotated(global_transform.basis.z, -steering * steering_roll) 
 	var z_rotation_angle = -global_transform.basis.y.angle_to(rot_vec_y) * sign(global_transform.basis.x.dot(rot_vec_y))
 	global_transform.basis = global_transform.basis.orthonormalized().slerp( 
 		global_transform.basis.rotated(global_transform.basis.z.normalized(), z_rotation_angle),
+		delta * roll_speed)
+	
+	# roll ship
+	ship_model.global_transform.basis = ship_model.global_transform.basis.orthonormalized().slerp(
+		initial_basis.rotated(ship_model.global_transform.basis.z, -steering * steering_roll),
 		delta * roll_speed)
 	
 	# Yaw
