@@ -10,7 +10,6 @@ extents = Vector3( 0.6, 0.25, 1 )
 [node name="Vehicle" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 2.46014, 5.16239 )
 script = ExtResource( 1 )
-max_speed = 40.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

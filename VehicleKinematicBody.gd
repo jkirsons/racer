@@ -6,15 +6,16 @@ var speed = 0.0
 var steering = 0.0
 
 export var acceleration = 10.0
-export var friction_deceleration = 2.0
-export var max_speed = 60.0
+export var friction_deceleration = 5.0
+export var max_speed = 40.0
 
 export var max_steering =  PI / 3 # radians
 export var steering_speed = 4.0
-export var steering_roll = 0.4
+export var steering_roll = 0.8
+export var steering_yaw = 0.3
 export var steering_center_multiplier = 4
 
-export var hover_height = 0.3
+export var hover_height = 0.6
 
 export var gravity_acc = 10.0
 export var hover_acc = 6
@@ -54,9 +55,10 @@ func _physics_process(delta):
 		global_transform.basis.rotated(global_transform.basis.z.normalized(), z_rotation_angle),
 		delta * roll_speed)
 	
-	# roll ship
-	ship_model.global_transform.basis = ship_model.global_transform.basis.orthonormalized().slerp(
-		initial_basis.rotated(ship_model.global_transform.basis.z, -steering * steering_roll),
+	# ship model - roll & yaw
+	var ship_speed_precent = speed / max_speed
+	ship_model.transform.basis = ship_model.transform.basis.orthonormalized().slerp(
+		initial_basis.rotated(initial_basis.z, -steering * steering_roll * ship_speed_precent).rotated(initial_basis.y,-steering * steering_yaw * ship_speed_precent),
 		delta * roll_speed)
 	
 	# Yaw
