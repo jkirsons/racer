@@ -25,11 +25,17 @@ export var pitch_speed = 12;
 export var yaw_speed = 8;
 
 export var collision_speed_decrease = 10
+export var max_trail_length = 4.5
 
 onready var aabb = get_node("CollisionShape/ship").get_aabb()
 onready var initial_pos = get_node("CollisionShape/ship").global_transform.origin
 onready var ship_model = get_node("CollisionShape/ship")
 onready var initial_basis = get_node("CollisionShape/ship").global_transform.basis
+
+onready var particles : Particles = get_node("CollisionParticles")
+onready var trail_left : Trail3D = get_node("CollisionShape/ship/Trail3D Left")
+onready var trail_right : Trail3D = get_node("CollisionShape/ship/Trail3D Right")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,6 +43,12 @@ func _ready():
 
 func _physics_process(delta):
 	process_input(delta)
+	
+	trail_left.length = (speed / max_speed) * max_trail_length
+	trail_right.length = (speed / max_speed) * max_trail_length
+	trail_left.segment_length = trail_left.length / trail_left.density_lengthwise
+	trail_right.segment_length = trail_right.length / trail_right.density_lengthwise
+	
 	var ground_normal = get_gravity(delta)
 
 	# apply steering
@@ -44,6 +56,14 @@ func _physics_process(delta):
 	
 	# apply speed
 	var velocity_vector = move_and_slide(global_transform.basis.xform(Vector3(0.0, 0.0, speed * -1)))
+	
+	# collision particles
+	if get_slide_count() > 0:
+		var col = get_slide_collision(0)
+		particles.global_transform.origin = col.position
+		particles.emitting = true
+	else:
+		particles.emitting = false
 	
 	# Roll
 	# Project the normal onto a plane of the Y axis
@@ -86,7 +106,9 @@ func _physics_process(delta):
 		# If we have collided, then slow down 
 		if speed > collision_speed_decrease and abs(y_rotation_angle) > 0.1:
 			speed -= collision_speed_decrease * abs(y_rotation_angle)
-			print("Collision: " + str(collision_speed_decrease * abs(y_rotation_angle)))
+			#print("Collision: " + str(collision_speed_decrease * abs(y_rotation_angle)))
+			
+
 
 func process_input(delta):
 		# speed

@@ -10,18 +10,30 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Spatial",
+"class": "PathClone",
+"language": "GDScript",
+"path": "res://scripts/PathClone.gd"
+}, {
+"base": "Spatial",
 "class": "PathRotation",
 "language": "GDScript",
-"path": "res://PathRotation.gd"
+"path": "res://scripts/PathRotation.gd"
 }, {
 "base": "Path",
 "class": "PathSegment",
 "language": "GDScript",
-"path": "res://PathSegment.gd"
+"path": "res://scripts/PathSegment.gd"
+}, {
+"base": "ImmediateGeometry",
+"class": "Trail3D",
+"language": "GDScript",
+"path": "res://scripts/Trail3D.gd"
 } ]
 _global_script_class_icons={
+"PathClone": "",
 "PathRotation": "",
-"PathSegment": ""
+"PathSegment": "",
+"Trail3D": ""
 }
 
 [application]
@@ -36,6 +48,8 @@ enabled=PoolStringArray( "my-addon" )
 
 [rendering]
 
+quality/filters/use_nearest_mipmap_filter=true
 quality/subsurface_scattering/quality=0
+quality/filters/msaa=2
 quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"

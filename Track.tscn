@@ -1,47 +1,78 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://default_env.tres" type="Environment" id=1]
-[ext_resource path="res://Camera.gd" type="Script" id=2]
-[ext_resource path="res://PathRotation.gd" type="Script" id=3]
-[ext_resource path="res://PathSegment.gd" type="Script" id=4]
-[ext_resource path="res://Stripe.png" type="Texture" id=5]
-[ext_resource path="res://red&white.png" type="Texture" id=6]
+[ext_resource path="res://scripts/Camera.gd" type="Script" id=2]
+[ext_resource path="res://scripts/PathRotation.gd" type="Script" id=3]
+[ext_resource path="res://scripts/PathSegment.gd" type="Script" id=4]
+[ext_resource path="res://materials/Stripe.png" type="Texture" id=5]
+[ext_resource path="res://materials/red&white.png" type="Texture" id=6]
 [ext_resource path="res://Vehicle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://models/tree_palm_big.obj" type="ArrayMesh" id=8]
+[ext_resource path="res://materials/yellow.tres" type="Material" id=9]
+[ext_resource path="res://materials/pink.tres" type="Material" id=10]
+[ext_resource path="res://materials/green.tres" type="Material" id=11]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.52411, -0.43157, -4.50141, 0, 0, 0, 0, 0, 0, -0.502323, 0.300304, -97.3571, -1.01096, -0.430345, 14.925, 1.01096, 0.430345, -14.925, -1.32218, 1.52279, -134.69, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463, 14.6047, -0.0959358, -0.143141, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559, -8.73372, 0.00038147, -15.4903, 8.73372, -0.00038147, 15.4903, -216.918, 0, 174.077, -17.6188, -1.52588e-05, -8.66194, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -24.7411, -1.30209, 9.52203, 24.7411, 1.30209, -9.52203, -33.1363, -3.05176e-05, 221.756, -3.50821, -4.76837e-07, 13.9706, 3.50821, 4.76837e-07, -13.9706, 3.33397, 0.578568, 184.435, 0.335613, 0.000289917, 11.2271, -0.335613, -0.000289917, -11.2271, 4.1574, 3.05176e-05, 130.745, 0, 0, 0, 0, 0, 0, 0.678744, -1.74652e-05, 76.095, 0, 0, 0, 0, 0, 0, -1.47702, -0.330202, 8.75581 ),
-"tilts": PoolRealArray( -0.0572634, -0.181098, -0.548445, -0.567794, -0.612034, -0.689488, -0.618292, -0.645162, -0.32929, 0, 0.0856274, 0.145478, 0.468984, 0.294843, 0, 0, 0, 0, 0, 0.735957, 0.219433, 0.289556, -0.0598923 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.52411, -0.43157, -4.50141, 0, 0, 0, 0, 0, 0, -0.502323, 0.300304, -97.3571, -1.01096, -0.430345, 14.925, 1.01096, 0.430345, -14.925, -1.32218, 1.52279, -134.69, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463, 14.6047, -0.0959358, -0.143141, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559, -8.73372, 0.00038147, -15.4903, 8.73372, -0.00038147, 15.4903, -216.918, 0, 174.077, -17.6188, -1.52588e-05, -8.66194, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435, 0.335613, 0.000289917, 11.2271, -0.335613, -0.000289917, -11.2271, 4.1574, 3.05176e-05, 130.745, 0, 0, 0, 0, 0, 0, 0.678744, -1.74652e-05, 76.095, 0, 0, 0, 0, 0, 0, -1.47702, -0.330202, 8.75581 ),
+"tilts": PoolRealArray( -0.0572634, -0.181098, -0.548445, -0.567794, -0.612034, -0.689488, -0.618292, -0.645162, -0.32929, 0, 0.0856274, 0.145478, 0.468984, 0.294843, 0, 0, 0, 0, 0, 0.735957, 0.456564, 0.289556, -0.0598923 )
 }
 
-[sub_resource type="Curve3D" id=2]
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.321569, 0.321569, 0.321569, 1 )
+
+[sub_resource type="Curve3D" id=3]
 _data = {
 "points": PoolVector3Array( 0, 0, 0, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559 ),
 "tilts": PoolRealArray( 0.145478, 0.468984, 0.294843, 0 )
 }
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=4]
+flags_vertex_lighting = true
 albedo_texture = ExtResource( 5 )
+emission_enabled = true
+emission = Color( 0, 0, 0, 1 )
+emission_energy = 0.58
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = ExtResource( 5 )
 
-[sub_resource type="Curve3D" id=4]
+[sub_resource type="Curve3D" id=5]
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459 ),
 "tilts": PoolRealArray( -0.689488, -0.618292, -0.645162, -0.32929 )
 }
 
-[sub_resource type="Curve3D" id=5]
+[sub_resource type="Curve3D" id=6]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569 ),
-"tilts": PoolRealArray( -0.567794, -0.612034, -0.689488 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435 ),
+"tilts": PoolRealArray( 0, 0, 0.735957 )
 }
 
-[sub_resource type="SpatialMaterial" id=6]
-albedo_color = Color( 0.0313726, 0.215686, 0.843137, 1 )
-metallic_specular = 1.0
-roughness = 0.23
-
 [sub_resource type="SpatialMaterial" id=7]
+flags_vertex_lighting = true
+albedo_color = Color( 0, 0.784314, 0.992157, 1 )
+emission_enabled = true
+emission = Color( 0.0313726, 0.368627, 0.396078, 1 )
+emission_energy = 0.1
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="Curve3D" id=8]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.52411, -0.43157, -4.50141, 0, 0, 0, 0, 0, 0, -0.502323, 0.300304, -97.3571, -1.01096, -0.430345, 14.925, 1.01096, 0.430345, -14.925, -1.32218, 1.52279, -134.69, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 123.528, 8.64568, 4.32463, 14.6047, -0.0959358, -0.143141, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559, -8.73372, 0.00038147, -15.4903, 8.73372, -0.00038147, 15.4903, -216.918, 0, 174.077, -17.6188, -1.52588e-05, -8.66194, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435, 0.335613, 0.000289917, 11.2271, -0.335613, -0.000289917, -11.2271, 4.1574, 3.05176e-05, 130.745, 0, 0, 0, 0, 0, 0, 0.678744, -1.74652e-05, 76.095, 0, 0, 0, 0, 0, 0, -1.47702, -0.330202, 8.75581 ),
+"tilts": PoolRealArray( -0.0572634, -0.181098, -0.548445, -0.567794, -0.612034, -0.689488, -0.618292, -0.645162, -0.32929, 0, 0.0856274, 0.145478, 0.468984, 0.294843, 0, 0, 0, 0, 0, 0.735957, 0.456564, 0.289556, -0.0598923 )
+}
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_vertex_lighting = true
 albedo_texture = ExtResource( 6 )
+emission_enabled = true
+emission = Color( 1, 0, 0, 1 )
+emission_energy = 0.0
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = ExtResource( 6 )
 uv1_scale = Vector3( 4.04, 1, 1 )
 
 [node name="Spatial" type="Spatial"]
@@ -72,9 +103,10 @@ script = ExtResource( 3 )
 curve = SubResource( 1 )
 
 [node name="TrackMesh" type="CSGPolygon" parent="Track/MainPath"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.245395, 0.05812, 0.000190258 )
 use_collision = true
 invert_faces = true
-polygon = PoolVector2Array( -2.45254, 0.330758, 2.41928, 0.331314, 2.70673, 0.737621, 2.79373, 1.34373, 3.61978, 1.35037, 3.62783, -0.0312879, -3.6994, 0.0249678, -3.69142, 1.35935, -2.96263, 1.3597, -2.82, 0.686294 )
+polygon = PoolVector2Array( -3.95559, 0.504846, 3.74866, 0.400383, 3.98544, 0.616569, 3.97514, 1.33719, 4.27369, 1.33719, 4.31487, 0.0297783, -4.44973, 0.0415914, -4.46002, 1.42106, -4.15119, 1.41077, -4.15119, 0.731327 )
 mode = 2
 path_node = NodePath("..")
 path_interval = 5.0
@@ -82,17 +114,18 @@ path_rotation = 2
 path_local = false
 path_continuous_u = true
 path_joined = true
+material = SubResource( 2 )
 
 [node name="Linked Paths" type="Spatial" parent="Track/MainPath"]
 
-[node name="PathSegment2" type="Path" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( 2 )
+[node name="RightBarrier" type="Path" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 3 )
 script = ExtResource( 4 )
 parent_path = NodePath("../..")
 start_node = 11
 length = 4
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/PathSegment2"]
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/RightBarrier"]
 invert_faces = true
 polygon = PoolVector2Array( 4.05, 0.229, 4.867, 1.115, 5.991, 3.632, 6.273, 6.169, 6.917, 6.177, 6.684, 3.435, 5.232, 0.791, 4.126, -0.191 )
 mode = 2
@@ -102,16 +135,16 @@ path_rotation = 2
 path_local = false
 path_continuous_u = false
 path_joined = false
-material = SubResource( 3 )
+material = SubResource( 4 )
 
-[node name="PathSegment" type="Path" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( 4 )
+[node name="LeftBarrier" type="Path" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 5 )
 script = ExtResource( 4 )
 parent_path = NodePath("../..")
 start_node = 5
 length = 4
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/PathSegment"]
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/LeftBarrier"]
 invert_faces = true
 polygon = PoolVector2Array( -4.04989, 0.229222, -4.86696, 1.1152, -5.99098, 3.63228, -6.27342, 6.16901, -6.9173, 6.17709, -6.6843, 3.43534, -5.23215, 0.791127, -4.12593, -0.191406 )
 mode = 2
@@ -121,26 +154,64 @@ path_rotation = 2
 path_local = false
 path_continuous_u = false
 path_joined = false
-material = SubResource( 3 )
+material = SubResource( 4 )
 
-[node name="PathSegment3" type="Path" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( 5 )
+[node name="BlueTunnel" type="Path" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 6 )
 script = ExtResource( 4 )
 parent_path = NodePath("../..")
-start_node = 3
+start_node = 17
 length = 3
 
-[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/PathSegment3"]
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/BlueTunnel"]
 invert_faces = true
 polygon = PoolVector2Array( -1.44107, -2.88214, -5.13982, -0.864641, -6.38875, 2.73803, -5.04375, 6.67696, 0.0960726, 9.41499, 4.8516, 7.01321, 6.38875, 3.26643, 5.33196, -1.63321, 0.624465, -2.97821, 0.576428, -4.13107, 6.1966, -2.40178, 7.58964, 3.3625, 5.76428, 7.5416, -0.528393, 10.76, -5.86035, 7.73374, -7.63767, 2.78607, -6.10053, -1.68125, -1.44107, -4.32321 )
 mode = 2
 path_node = NodePath("..")
-path_interval = 28.09
+path_interval = 14.159
 path_rotation = 2
 path_local = false
 path_continuous_u = false
 path_joined = false
-material = SubResource( 6 )
+material = SubResource( 7 )
+
+[node name="Rail" type="Path" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 8 )
+script = ExtResource( 4 )
+parent_path = NodePath("../..")
+start_node = 0
+length = 23
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/Rail"]
+invert_faces = true
+polygon = PoolVector2Array( -4.17711, 1.44361, -4.166, 1.6677, -4.36802, 1.64949, -4.36213, 1.4471 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 5.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = true
+material = ExtResource( 10 )
+
+[node name="Rail2" type="Path" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 8 )
+script = ExtResource( 4 )
+parent_path = NodePath("../..")
+start_node = 0
+length = 23
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Track/MainPath/Linked Paths/Rail2"]
+invert_faces = true
+polygon = PoolVector2Array( 4.00541, 1.50006, 3.992, 1.68407, 4.18494, 1.67546, 4.18877, 1.49373 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 5.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = true
+material = ExtResource( 10 )
 
 [node name="Standalone Objects" type="Spatial" parent="Track"]
 
@@ -148,6 +219,64 @@ material = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.33179, -1.11458, -26.7052 )
 polygon = PoolVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.2411, -0.0360629, 5.73395, 3.32978, 5.31322, 5.28918, 3.49807, 6.1066, -0.0240415, 5.12089, -0.0240415, 4.45974, 3.32978, 2.93309, 4.76026, -0.0240415, 5.06078, -2.64459, 4.56793, -4.39964, 2.98117, -4.97664, 1.4013e-45 )
 depth = 42.763
-material = SubResource( 7 )
+material = SubResource( 9 )
 
 [node name="Vehicle" parent="." instance=ExtResource( 7 )]
+
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="tree_palm_big" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45175, 0, -16.7175 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big7" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.32729, 0, -16.7175 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big2" type="MeshInstance" parent="Spatial"]
+transform = Transform( -0.975726, 0, -0.218993, 0, 1, 0, 0.218993, 0, -0.975726, 7.45175, 0, -7.98742 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big8" type="MeshInstance" parent="Spatial"]
+transform = Transform( -0.975726, 0, -0.218993, 0, 1, 0, 0.218993, 0, -0.975726, -9.32729, 0, -7.98742 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big3" type="MeshInstance" parent="Spatial"]
+transform = Transform( 0.6026, 0, -0.798043, 0, 1, 0, 0.798043, 0, 0.6026, 7.45175, 0, 0.26131 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big5" type="MeshInstance" parent="Spatial"]
+transform = Transform( 0.6026, 0, -0.798043, 0, 1, 0, 0.798043, 0, 0.6026, -9.32729, 0, 0.26131 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big4" type="MeshInstance" parent="Spatial"]
+transform = Transform( 0.0441958, 0, 0.999023, 0, 1, 0, -0.999023, 0, 0.0441958, 7.45175, 0, 8.36317 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )
+
+[node name="tree_palm_big6" type="MeshInstance" parent="Spatial"]
+transform = Transform( 0.0441958, 0, 0.999023, 0, 1, 0, -0.999023, 0, 0.0441958, -9.32729, 0, 8.36317 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 11 )
+material/2 = ExtResource( 9 )

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/red&white.png-1d6b85bb4a1f1ec0f9ba30413833603e.s3tc.stex"
-path.etc2="res://.import/red&white.png-1d6b85bb4a1f1ec0f9ba30413833603e.etc2.stex"
+path.s3tc="res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.s3tc.stex"
+path.etc2="res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://red&white.png"
-dest_files=[ "res://.import/red&white.png-1d6b85bb4a1f1ec0f9ba30413833603e.s3tc.stex", "res://.import/red&white.png-1d6b85bb4a1f1ec0f9ba30413833603e.etc2.stex" ]
+source_file="res://materials/Stripe.png"
+dest_files=[ "res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.s3tc.stex", "res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.etc2.stex" ]
 
 [params]
 

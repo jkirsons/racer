@@ -5,6 +5,7 @@ class_name PathSegment
 export var parent_path : NodePath
 export var start_node : int
 export var length: int
+
 var parent_curve
 
 # Called when the node enters the scene tree for the first time.

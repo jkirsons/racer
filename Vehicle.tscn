@@ -1,11 +1,67 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://VehicleKinematicBody.gd" type="Script" id=1]
-[ext_resource path="res://ship.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://ShipMaterial.tres" type="Material" id=3]
+[ext_resource path="res://scripts/VehicleKinematicBody.gd" type="Script" id=1]
+[ext_resource path="res://models/ship_new.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://scripts/Trail3D.gd" type="Script" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.6, 0.25, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+flags_vertex_lighting = true
+albedo_color = Color( 0, 0.529412, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+albedo_color = Color( 0.313726, 0.313726, 0.313726, 0.392157 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_vertex_lighting = true
+albedo_color = Color( 1, 0, 0, 1 )
+emission_enabled = true
+emission = Color( 1, 0, 0, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_vertex_lighting = true
+params_blend_mode = 1
+albedo_color = Color( 1, 0, 0, 0.180392 )
+emission_enabled = true
+emission = Color( 1, 0, 0, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_vertex_lighting = true
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color( 1, 0.854902, 0, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 1, 0.752941, 0, 1, 0.176471, 0.133333, 0.0117647, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+spread = 38.18
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 0.31
+angular_velocity = 7.28675e-44
+damping = 5.0
+scale = 0.04
+color_ramp = SubResource( 7 )
+
+[sub_resource type="CubeMesh" id=9]
+size = Vector3( 1, 1, 4 )
 
 [node name="Vehicle" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 2.46014, 5.16239 )
@@ -16,4 +72,37 @@ shape = SubResource( 1 )
 
 [node name="ship" type="MeshInstance" parent="CollisionShape"]
 mesh = ExtResource( 2 )
-material/0 = ExtResource( 3 )
+material/0 = SubResource( 2 )
+material/1 = SubResource( 3 )
+material/2 = SubResource( 4 )
+
+[node name="Trail3D Right" type="ImmediateGeometry" parent="CollisionShape/ship"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409, 0.0469999, 0.688 )
+material_override = SubResource( 10 )
+script = ExtResource( 3 )
+length = 4.0
+max_radius = 0.15
+density_lengthwise = 5
+density_around = 3
+shape = 2.0
+
+[node name="Trail3D Left" type="ImmediateGeometry" parent="CollisionShape/ship"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.409, 0.0469999, 0.688 )
+material_override = SubResource( 10 )
+script = ExtResource( 3 )
+length = 4.0
+max_radius = 0.15
+density_lengthwise = 5
+density_around = 3
+shape = 2.0
+
+[node name="CollisionParticles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.849109, 0.528218, 0, -0.528218, 0.849109, 0, 0, 0 )
+visible = false
+material_override = SubResource( 5 )
+cast_shadow = 0
+emitting = false
+amount = 100
+local_coords = false
+process_material = SubResource( 8 )
+draw_pass_1 = SubResource( 9 )

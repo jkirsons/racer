@@ -1,7 +1,5 @@
 extends EditorSpatialGizmoPlugin
 
-const MyCustomSpatial = preload("res://PathRotation.gd")
-
 func get_curve(spatial):
 	return spatial.get_node("MainPath").curve
 
@@ -14,11 +12,12 @@ func _init():
 	create_handle_material("handles")
 
 func has_gizmo(spatial):
-	if spatial is MyCustomSpatial:
-		print("Match: "+str(spatial))
+	if spatial.name == "Track":
+		print("Match: "+str(spatial.name))
+		return true
 	else:
-		print("No Match: "+str(spatial))
-	return spatial is MyCustomSpatial
+		print("No Match: "+str(spatial.name))
+		return false
 
 func get_forward(curve, index):
 	# Gets the forward vector of a curve index
