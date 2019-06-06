@@ -1,5 +1,6 @@
 # Trail3D
 # author: miziziziz
+# https://github.com/willnationsdev/godot-next/blob/master/addons/godot-next/3d/trail_3d.gd
 # brief description: Creates a variable-length trail on an ImmediateGeometry node.
 # API details:
 # - density_lengthwise: number of vertex loops in trail

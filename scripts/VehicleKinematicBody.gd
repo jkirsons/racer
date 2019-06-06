@@ -1,6 +1,4 @@
 extends KinematicBody
-# https://docs.godotengine.org/en/3.1/classes/class_kinematicbody.html
-# https://docs.godotengine.org/en/3.1/tutorials/inputs/inputevent.html#what-is-it
 
 var speed = 0.0
 var steering = 0.0
