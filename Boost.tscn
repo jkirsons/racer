@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/BoostArea.gd" type="Script" id=1]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 1.24608, 3.56853, 1.73222 )
+extents = Vector3( 1.926, 3.609, 1.952 )
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
@@ -11,7 +11,7 @@ flags_vertex_lighting = true
 params_blend_mode = 1
 albedo_color = Color( 0.447059, 0.466667, 0.0901961, 0.180392 )
 
-[node name="Area" type="Area"]
+[node name="BoostArea" type="Area"]
 script = ExtResource( 1 )
 parent_path = NodePath("../Track/MainPath")
 offset = Vector3( -1.92, 0, 0 )

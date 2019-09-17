@@ -34,6 +34,7 @@ onready var particles : Particles = get_node("CollisionParticles")
 onready var trail_left : Trail3D = get_node("CollisionShape/ship/Trail3D Left")
 onready var trail_right : Trail3D = get_node("CollisionShape/ship/Trail3D Right")
 
+var contact_points = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -143,7 +144,7 @@ func get_gravity(delta):
 	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + (aabb.size.z/2) * global_transform.basis.z + height_offset)
 
 	# find average distance and normal
-	var contact_points = 0
+	contact_points = 0
 	var normal = Vector3.ZERO
 	var distance = 0
 	for point in ray_points:
@@ -160,7 +161,7 @@ func get_gravity(delta):
 	else:
 		normal /= contact_points
 		distance /= contact_points
-		grav_vector = Vector3(0, hover_acc * (hover_height  - distance), 0)
+		grav_vector = Vector3(0, max(hover_acc * (hover_height  - distance), -gravity_acc), 0)
 	
 	move_and_slide(grav_vector)
 
