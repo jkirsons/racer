@@ -7,14 +7,15 @@
 # - density_around: number of vertexes in each loop
 # - shape: curve used to shape trail, right click on this in inspector to see curve options
 
-extends ImmediateGeometry
+extends ImmediateGeometry3D
 class_name Trail3D
 
-export(float) var length = 10.0
-export var max_radius = 0.5
-export(int) var density_lengthwise = 25
-export(int) var density_around = 5
-export(float, EASE) var shape
+@export var length : float = 10.0
+@export var max_radius = 0.5
+@export var density_lengthwise : int = 25
+@export var density_around : int = 5
+@export var shape : float
+
 var points = []
 var segment_length = 1.0
 
@@ -33,8 +34,9 @@ func _ready():
 		cur += 1
 
 func _process(_delta):
-	update_trail()
-	render_trail()
+	#update_trail()
+	#render_trail()
+	pass
 	
 func update_trail():
 	global_transform.basis = Basis()

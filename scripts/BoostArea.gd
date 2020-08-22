@@ -1,30 +1,31 @@
-tool
-extends Area
+@tool
+extends Area3D
 class_name BoostArea
 
-export var parent_path : NodePath
+@export_node_path(Path3D) var parent_path : NodePath
 
-export var speed = 100
-export(float, 0, 1) var start_pos
-export var offset : Vector3
+@export var speed = 100
+@export_range(0, 1) var start_pos : float
+@export var offset : Vector3 = Vector3()
 
 var parent_curve : Curve3D
 
 var settings = {}
 
 func get_settings() -> Dictionary:
-	var set = {}
-	set.start_pos = start_pos
-	set.offset = offset
+	var set = {
+		start_pos: start_pos,
+		offset: offset
+	}
 	return set
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("body_entered", self, "_on_Area_body_entered")
+	connect("body_entered", self._on_Area_body_entered)
 	
-	var parent : Path = get_node(parent_path)
+	var parent : Path3D = get_node(parent_path) as Path3D
 	parent_curve = parent.curve
-	parent.connect("curve_changed", self, "_on_Path_curve_changed")	
+	parent.connect("curve_changed", self._on_Path_curve_changed)	
 
 func _on_Area_body_entered(body):
 	if body.name == "Vehicle":

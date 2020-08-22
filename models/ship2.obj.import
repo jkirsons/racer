@@ -15,4 +15,5 @@ dest_files=[ "res://.import/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh", "r
 
 generate_tangents=true
 scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
 optimize_mesh=true

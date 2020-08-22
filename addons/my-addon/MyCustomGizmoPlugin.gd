@@ -1,4 +1,4 @@
-extends EditorSpatialGizmoPlugin
+extends EditorNode3DGizmoPlugin
 
 func get_curve(spatial):
 	return spatial.get_node("MainPath").curve
@@ -35,11 +35,11 @@ func redraw(gizmo):
 	var spatial = gizmo.get_spatial_node()
 	var curve = get_curve(spatial)
 	
-	var lines = PoolVector3Array()
-	var lines2 = PoolVector3Array()
-	var handles = PoolVector3Array()
+	var lines = PackedVector3Array()
+	var lines2 = PackedVector3Array()
+	var handles = PackedVector3Array()
 
-	for n in range(0,curve.get_point_count()):
+	for n in range(0, curve.get_point_count() as int):
 		var pos = curve.get_point_position(n)
 		var forward  = get_forward(curve, n)
 		

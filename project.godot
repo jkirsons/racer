@@ -9,37 +9,37 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area",
-"class": "BoostArea",
-"language": "GDScript",
+"base": "Area3D",
+"class": @"BoostArea",
+"language": @"GDScript",
 "path": "res://scripts/BoostArea.gd"
 }, {
-"base": "Spatial",
-"class": "PathClone",
-"language": "GDScript",
+"base": "Node3D",
+"class": @"PathClone",
+"language": @"GDScript",
 "path": "res://scripts/PathClone.gd"
 }, {
-"base": "Spatial",
-"class": "PathRotation",
-"language": "GDScript",
+"base": "Node3D",
+"class": @"PathRotation",
+"language": @"GDScript",
 "path": "res://scripts/PathRotation.gd"
 }, {
-"base": "Path",
-"class": "PathSegment",
-"language": "GDScript",
+"base": "Path3D",
+"class": @"PathSegment",
+"language": @"GDScript",
 "path": "res://scripts/PathSegment.gd"
 }, {
-"base": "ImmediateGeometry",
-"class": "Trail3D",
-"language": "GDScript",
+"base": "ImmediateGeometry3D",
+"class": @"Trail3D",
+"language": @"GDScript",
 "path": "res://scripts/Trail3D.gd"
 } ]
 _global_script_class_icons={
-"BoostArea": "",
-"PathClone": "",
-"PathRotation": "",
-"PathSegment": "",
-"Trail3D": ""
+@"Trail3D": "",
+@"PathRotation": "",
+@"PathClone": "",
+@"BoostArea": "",
+@"PathSegment": ""
 }
 
 [application]
@@ -48,9 +48,9 @@ config/name="racer"
 run/main_scene="res://Track.tscn"
 config/icon="res://icon.png"
 
-[editor_plugins]
+[physics]
 
-enabled=PoolStringArray( "my-addon" )
+3d/physics_engine="GodotPhysics3D"
 
 [rendering]
 
