@@ -9,9 +9,9 @@ var steering = 0.0
 
 @export var max_steering : float =  PI / 3 # radians
 @export var steering_speed = 4.0
-@export var steering_roll = 0.8
+@export var steering_roll = 0.5
 @export var steering_yaw = 0.3
-@export var steering_center_multiplier = 4
+@export var steering_center_multiplier = 4 # multiplier when returning steering to center
 
 @export var hover_height = 0.6
 
@@ -27,12 +27,12 @@ var steering = 0.0
 
 @onready var aabb = get_node("CollisionShape/ship").get_aabb()
 @onready var initial_pos = get_node("CollisionShape/ship").global_transform.origin
-@onready var ship_model = get_node("CollisionShape/ship")
+@onready var ship_model = get_node("CollisionShape")
 @onready var initial_basis = get_node("CollisionShape/ship").global_transform.basis
 
-@onready var particles : GPUParticles3D = get_node("CollisionParticles") as GPUParticles3D
-@onready var trail_left : Trail3D = get_node("CollisionShape/ship/Trail3D Left") as Trail3D
-@onready var trail_right : Trail3D = get_node("CollisionShape/ship/Trail3D Right") as Trail3D
+@onready var particles : CPUParticles3D = get_node("CPUParticles3D") as CPUParticles3D
+#@onready var trail_left : Trail3D = get_node("CollisionShape/ship/Trail3D Left") as Trail3D
+#@onready var trail_right : Trail3D = get_node("CollisionShape/ship/Trail3D Right") as Trail3D
 
 var contact_points = 0
 
@@ -43,10 +43,10 @@ func _ready():
 func _physics_process(delta):
 	process_input(delta)
 	
-	trail_left.length = (speed / max_speed) * max_trail_length
-	trail_right.length = (speed / max_speed) * max_trail_length
-	trail_left.segment_length = trail_left.length / trail_left.density_lengthwise
-	trail_right.segment_length = trail_right.length / trail_right.density_lengthwise
+	#trail_left.length = (speed / max_speed) * max_trail_length
+	#trail_right.length = (speed / max_speed) * max_trail_length
+	#trail_left.segment_length = trail_left.length / trail_left.density_lengthwise
+	#trail_right.segment_length = trail_right.length / trail_right.density_lengthwise
 	
 	var ground_normal = get_gravity(delta)
 
@@ -54,13 +54,16 @@ func _physics_process(delta):
 	global_transform.basis = global_transform.basis.rotated(global_transform.basis.y.normalized(), -steering * delta)
 	
 	# apply speed
-	var velocity_vector = move_and_slide(global_transform.basis.xform(Vector3(0.0, 0.0, speed * -1)))
+	var velocity_vector : Vector3 = Vector3.ZERO
+	if speed != 0:
+		velocity_vector = move_and_slide(global_transform.basis.xform(Vector3(0.0, 0.0, speed * -1)))
 	
 	# collision particles
 	if get_slide_count() > 0:
 		var col = get_slide_collision(0)
-		particles.global_transform.origin = col.position
-		particles.emitting = true
+		if col.local_shape != ship_model:
+			particles.global_transform.origin = col.position
+			particles.emitting = true
 	else:
 		particles.emitting = false
 	
@@ -74,7 +77,7 @@ func _physics_process(delta):
 		global_transform.basis.rotated(global_transform.basis.z.normalized(), z_rotation_angle),
 		delta * roll_speed)
 	
-	# ship model - roll & yaw
+	# ship model - roll & yaw - adds a drifting effect
 	var ship_speed_precent = speed / max_speed
 	ship_model.transform.basis = ship_model.transform.basis.orthonormalized().slerp(
 		initial_basis.rotated(initial_basis.z, -steering * steering_roll * ship_speed_precent).rotated(initial_basis.y,-steering * steering_yaw * ship_speed_precent),
@@ -136,23 +139,28 @@ func get_gravity(delta):
 	var space_state = get_world_3d().direct_space_state
 	var height_offset = Vector3(0.0, 0.1, 0.0) * global_transform.basis.y
 	var aabb_y = Vector3(0.0, aabb.position.y, 0.0)
-	var ray_points = Array()
+	var ray_points = [] #Array()
 	
 	# ray points down centre line
+	ray_points.clear() # Godot 4 error - variable scope not respected
 	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  - (aabb.size.z/2) * global_transform.basis.z + height_offset)
 	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + height_offset)
 	ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + (aabb.size.z/2) * global_transform.basis.z + height_offset)
 
+	#ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  - (aabb.size.x/2) * global_transform.basis.x + height_offset)
+	#ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + (aabb.size.x/2) * global_transform.basis.x + height_offset)
+	
 	# find average distance and normal
 	contact_points = 0
 	var normal = Vector3.ZERO
-	var distance = 0
+	var distance = 999 #0
 	for point in ray_points:
 		var to = point + global_transform.basis.y * -(hover_height + (gravity_acc-hover_acc) + height_offset.y )
 		var coll = space_state.intersect_ray(point, to, [self])
 		if coll:
 			contact_points += 1
-			distance += point.distance_to(coll['position']) - height_offset.y 
+			#distance += point.distance_to(coll['position']) - height_offset.y 
+			distance = min(distance, point.distance_to(coll['position']) - height_offset.y)
 			normal += coll['normal']
 	
 	var grav_vector = Vector3.ZERO
@@ -160,7 +168,7 @@ func get_gravity(delta):
 		grav_vector = Vector3(0.0, -gravity_acc, 0.0)
 	else:
 		normal /= contact_points
-		distance /= contact_points
+		#distance /= contact_points
 		grav_vector = Vector3(0.0, max(hover_acc * (hover_height  - distance), -gravity_acc), 0.0)
 	
 	move_and_slide(grav_vector)

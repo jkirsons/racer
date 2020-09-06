@@ -1,0 +1,328 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://BoostZone.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Vehicle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://default_env.tres" type="Environment" id=3]
+[ext_resource path="res://scripts/PathClone.gd" type="Script" id=4]
+[ext_resource path="res://scripts/Camera.gd" type="Script" id=5]
+[ext_resource path="res://scripts/PathSegment.gd" type="Script" id=6]
+[ext_resource path="res://scripts/PathRotation.gd" type="Script" id=7]
+[ext_resource path="res://materials/Stripe.png" type="Texture2D" id=8]
+[ext_resource path="res://materials/red&white.png" type="Texture2D" id=9]
+[ext_resource path="res://materials/pink.tres" type="Material" id=10]
+[ext_resource path="res://Palm.tscn" type="PackedScene" id=11]
+[ext_resource path="res://ring.tscn" type="PackedScene" id=12]
+
+[sub_resource type="Curve3D" id=1]
+_data = {
+"points": PackedVector3Array( 0, 0, 0, 0, 0, 0, -1.93303, -0.0411587, -12.8257, 0, 0, 0, 0, 0, 0, -0.502323, 0.300304, -97.3571, -1.01096, -0.430345, 14.925, 1.01096, 0.430345, -14.925, -1.32218, 1.52279, -134.69, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 128.353, 8.64568, -1.42054, 5.69127, 0.710484, -0.477088, -5.69127, -0.710484, 0.477088, -6.57512, 28.9183, -0.469651, 2.90148, 0, -0.378455, -2.90148, 0, 0.378455, -18.0396, 12.7872, 0.441528, 14.6047, -0.0959358, -0.143141, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559, -8.73372, 0.00038147, -15.4903, 8.73372, -0.00038147, 15.4903, -216.918, 0, 174.077, -17.6188, -1.52588e-05, -8.66194, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435, 0.335613, 0.000289917, 11.2271, -0.335613, -0.000289917, -11.2271, 4.19254, -0.230675, 131.713, 0, 0, 0, 0, 0, 0, -2.03413, -0.302783, -8.77736 ),
+"tilts": PackedFloat32Array( -0.0572634, -0.181098, -0.548445, -0.567794, -0.612034, -0.689488, -0.618292, -0.645162, -0.32929, -0.0981216, 0, 0, 0.0856274, 0.145478, 0.468984, 0.68685, 0, 0.146779, 1.80913, 0, 0, 0.759716, 0.456564, -0.0598923 )
+}
+
+[sub_resource type="StandardMaterial3D" id=2]
+albedo_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+
+[sub_resource type="Curve3D" id=3]
+_data = {
+"points": PackedVector3Array(  ),
+"tilts": PackedFloat32Array(  )
+}
+
+[sub_resource type="StandardMaterial3D" id=4]
+shading_mode = 2
+albedo_texture = ExtResource( 8 )
+emission_enabled = true
+emission = Color( 0, 0, 0, 1 )
+emission_energy = 0.58
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = ExtResource( 8 )
+
+[sub_resource type="Curve3D" id=5]
+_data = {
+"points": PackedVector3Array(  ),
+"tilts": PackedFloat32Array(  )
+}
+
+[sub_resource type="Curve3D" id=6]
+_data = {
+"points": PackedVector3Array(  ),
+"tilts": PackedFloat32Array(  )
+}
+
+[sub_resource type="StandardMaterial3D" id=7]
+shading_mode = 2
+albedo_color = Color( 0, 0.784314, 0.992157, 1 )
+emission_enabled = true
+emission = Color( 0.0313726, 0.368627, 0.396078, 1 )
+emission_energy = 0.1
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="Curve3D" id=8]
+_data = {
+"points": PackedVector3Array(  ),
+"tilts": PackedFloat32Array(  )
+}
+
+[sub_resource type="StandardMaterial3D" id=9]
+shading_mode = 2
+albedo_texture = ExtResource( 9 )
+emission_enabled = true
+emission = Color( 1, 0, 0, 1 )
+emission_energy = 0.0
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = ExtResource( 9 )
+uv1_scale = Vector3( 4.04, 1, 1 )
+
+[node name="Root" type="Node3D"]
+script = null
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform( 0.999866, -0.0134174, 0.00939502, -0.0147692, -0.490486, 0.871324, -0.00708282, -0.871346, -0.490618, 0, 11.6691, 0 )
+light_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+light_bake_mode = 0
+shadow_enabled = true
+script = null
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.708 )
+environment = ExtResource( 3 )
+current = true
+far = 300.0
+script = ExtResource( 5 )
+target_object = NodePath("../../Root/Vehicle")
+target_height = 1.166
+
+[node name="Track" type="Node3D" parent="."]
+script = ExtResource( 7 )
+
+[node name="MainPath" type="Path3D" parent="Track"]
+curve = SubResource( 1 )
+script = null
+
+[node name="TrackMesh" type="CSGPolygon3D" parent="Track/MainPath"]
+use_collision = true
+invert_faces = true
+polygon = PackedVector2Array( -4.956, 0.505, 4.749, 0.4, 4.985, 0.617, 4.975, 1.337, 5.274, 1.337, 5.315, 0.03, -5.45, 0.042, -5.46, 1.421, -5.151, 1.411, -5.151, 0.731 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 5.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_joined = true
+material = SubResource( 2 )
+script = null
+
+[node name="Linked Paths" type="Node3D" parent="Track/MainPath"]
+script = null
+
+[node name="RightBarrier" type="Path3D" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 3 )
+script = ExtResource( 6 )
+parent_path = NodePath("../../../../../Root/Track/MainPath")
+
+[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/RightBarrier"]
+use_collision = true
+invert_faces = true
+polygon = PackedVector2Array( 5.05, 0.229, 5.867, 1.115, 6.97871, 3.48871, 7.273, 6.169, 7.917, 6.177, 7.684, 3.435, 6.232, 0.791, 5.126, -0.191 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 10.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
+material = SubResource( 4 )
+script = null
+
+[node name="LeftBarrier" type="Path3D" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 5 )
+script = ExtResource( 6 )
+parent_path = NodePath("../../../../../Root/Track/MainPath")
+
+[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/LeftBarrier"]
+use_collision = true
+invert_faces = true
+polygon = PackedVector2Array( -5.05, 0.229, -5.867, 1.115, -6.991, 3.632, -7.273, 6.169, -7.917, 6.177, -7.684, 3.435, -6.232, 0.791, -5.126, -0.191 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 8.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
+material = SubResource( 4 )
+script = null
+
+[node name="BlueTunnel" type="Path3D" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 6 )
+script = ExtResource( 6 )
+parent_path = NodePath("../..")
+
+[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/BlueTunnel"]
+invert_faces = true
+polygon = PackedVector2Array( -1.44107, -2.88214, -5.13982, -0.864641, -6.38875, 2.73803, -5.04375, 6.67696, 0.0960726, 9.41499, 4.8516, 7.01321, 6.38875, 3.26643, 5.33196, -1.63321, 0.624465, -2.97821, 0.576428, -4.13107, 6.1966, -2.40178, 7.58964, 3.3625, 5.76428, 7.5416, -0.528393, 10.76, -5.86035, 7.73374, -7.63767, 2.78607, -6.10053, -1.68125, -1.44107, -4.32321 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 14.159
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
+material = SubResource( 7 )
+script = null
+
+[node name="Rail" type="Path3D" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 8 )
+script = ExtResource( 6 )
+parent_path = NodePath("../../../../../Root/Track/MainPath")
+
+[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/Rail"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10881, 0 )
+invert_faces = true
+polygon = PackedVector2Array( -5.177, 1.444, -5.166, 1.668, -5.368, 1.649, -5.362, 1.447 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 5.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = true
+material = ExtResource( 10 )
+script = null
+
+[node name="Rail2" type="Path3D" parent="Track/MainPath/Linked Paths"]
+curve = SubResource( 8 )
+script = ExtResource( 6 )
+parent_path = NodePath("../../../../../Root/Track/MainPath")
+
+[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/Rail2"]
+invert_faces = true
+polygon = PackedVector2Array( 5.005, 1.5, 4.992, 1.684, 5.185, 1.675, 5.189, 1.494 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 5.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = true
+material = ExtResource( 10 )
+script = null
+
+[node name="Standalone Objects" type="Node3D" parent="Track"]
+visible = false
+script = null
+
+[node name="Semi-Circle" type="CSGPolygon3D" parent="Track/Standalone Objects"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05981, -0.209588, -26.7052 )
+polygon = PackedVector2Array( -5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.2411, -0.0360629, 5.73395, 3.32978, 5.31322, 5.28918, 3.49807, 6.1066, -0.0240415, 5.12089, -0.0240415, 4.45974, 3.32978, 2.93309, 4.76026, -0.0240415, 5.06078, -2.64459, 4.56793, -4.39964, 2.98117, -4.97664, 1.4013e-45 )
+depth = 42.763
+material = SubResource( 9 )
+script = null
+
+[node name="Vehicle" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28191, 5.54745, 5.16239 )
+
+[node name="Node3D" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.0153685, -0.0791312, 0.996864, 0.116126, 0.990093, -0.0788849, 0.980746, -0.115993, -0.00628064, 154.404, 7.26636, -1.56177 )
+parent_path = NodePath("../Track/MainPath")
+start_pos = 0.39
+offset = Vector3( 0, 0.154, 0 )
+
+[node name="Trees" type="Node3D" parent="."]
+script = ExtResource( 4 )
+parent_path = NodePath("../Track/MainPath")
+object_res = ExtResource( 11 )
+start_pos = 0.905
+copies = 8
+space_between = 0.007
+offset = Vector3( 5.951, 1.539, 0 )
+random_rotate = true
+mirror_x = true
+
+[node name="Trees__0" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.0879523, 0, -0.996125, 0, 1, 0, 0.996125, 0, -0.0879523, -0.60498, -2.65245, 147.512 )
+
+[node name="Trees__0_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.72368, 0, -0.690136, 0, 1, 0, 0.690136, 0, -0.72368, 10.371, 2.83539, 146.774 )
+
+[node name="Trees__1" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( 0.972646, 0, -0.232294, 0, 1, 0, 0.232294, 0, 0.972646, -1.31475, -2.54549, 136.084 )
+
+[node name="Trees__1_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( 0.991287, 0, -0.131723, 0, 1, 0, 0.131723, 0, 0.991287, 10.0205, 2.16395, 135.401 )
+
+[node name="Trees__2" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.0377565, 0, 0.999287, 0, 1, 0, -0.999287, 0, -0.0377565, -1.9488, -2.0824, 124.604 )
+
+[node name="Trees__2_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.0967498, 0, -0.995309, 0, 1, 0, 0.995309, 0, -0.0967498, 9.76495, 1.61631, 124.115 )
+
+[node name="Trees__3" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.607156, 0, 0.794582, 0, 1, 0, -0.794582, 0, -0.607156, -2.50802, -1.81009, 113.342 )
+
+[node name="Trees__3_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.398438, 0, 0.917195, 0, 1, 0, -0.917195, 0, -0.398438, 9.36557, 1.33379, 112.827 )
+
+[node name="Trees__4" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( 0.882793, 0, -0.469763, 0, 1, 0, 0.469763, 0, 0.882793, -3.04658, -1.59847, 102.214 )
+
+[node name="Trees__4_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.872687, 0, 0.48828, 0, 1, 0, -0.48828, 0, -0.872687, 8.93283, 1.11129, 101.682 )
+
+[node name="Trees__5" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( 0.697467, 0, 0.716617, 0, 1, 0, -0.716617, 0, 0.697467, -3.57974, -1.41037, 91.05 )
+
+[node name="Trees__5_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.749419, 0, -0.662096, 0, 1, 0, 0.662096, 0, -0.749419, 8.48048, 0.91187, 90.5115 )
+
+[node name="Trees__6" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( 0.726713, 0, 0.686941, 0, 1, 0, -0.686941, 0, 0.726713, -4.13054, -1.22751, 79.4089 )
+
+[node name="Trees__6_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.893902, 0, -0.448263, 0, 1, 0, 0.448263, 0, -0.893902, 7.99617, 0.716947, 78.8669 )
+
+[node name="Trees__7" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.0525542, 0, 0.998618, 0, 1, 0, -0.998618, 0, -0.0525542, -4.67965, -1.05002, 67.7163 )
+
+[node name="Trees__7_(Mirror)" parent="Trees" instance=ExtResource( 11 )]
+transform = Transform( -0.0346657, 0, 0.999399, 0, 1, 0, -0.999399, 0, -0.0346657, 7.50001, 0.527169, 67.1686 )
+
+[node name="Rings" type="Node3D" parent="."]
+script = ExtResource( 4 )
+parent_path = NodePath("../Track/MainPath")
+object_res = ExtResource( 12 )
+start_pos = 0.074
+copies = 9
+space_between = 0.004
+align_to_path = true
+
+[node name="Rings__0" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.857446, 0.513425, -0.0343665, 0.513294, 0.858111, 0.0132019, -0.0362684, 0.00632016, 0.999322, -1.37226, 1.50004, -133.906 )
+
+[node name="Rings__1" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.826508, 0.500101, -0.258427, 0.518165, 0.855278, -0.00209794, -0.219978, 0.135642, 0.966028, -0.348524, 1.58223, -140.355 )
+
+[node name="Rings__2" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.785112, 0.476127, -0.396109, 0.522092, 0.852834, -0.00970375, -0.333195, 0.214424, 0.918152, 1.73497, 1.47872, -146.562 )
+
+[node name="Rings__3" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.753025, 0.45716, -0.473243, 0.526211, 0.850204, -0.0159982, -0.395039, 0.261073, 0.880787, 4.4068, 1.28111, -152.477 )
+
+[node name="Rings__4" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.726132, 0.442973, -0.525841, 0.529887, 0.847889, -0.0174506, -0.438124, 0.291308, 0.850404, 7.45789, 1.03687, -158.184 )
+
+[node name="Rings__5" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.706946, 0.432711, -0.559454, 0.532939, 0.845937, -0.0191494, -0.464976, 0.311692, 0.82864, 10.7607, 0.776072, -163.704 )
+
+[node name="Rings__6" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.690276, 0.425666, -0.585088, 0.535606, 0.844283, -0.0176616, -0.486462, 0.325568, 0.810777, 14.2976, 0.516888, -169.151 )
+
+[node name="Rings__7" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.680284, 0.421799, -0.599415, 0.53778, 0.84291, -0.0171905, -0.498003, 0.334048, 0.800253, 17.9491, 0.285491, -174.431 )
+
+[node name="Rings__8" parent="Rings" instance=ExtResource( 12 )]
+transform = Transform( -0.669875, 0.421403, -0.611299, 0.539798, 0.841719, -0.0112794, -0.509789, 0.337534, 0.791319, 21.7944, 0.100345, -179.719 )

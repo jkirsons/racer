@@ -16,7 +16,7 @@ func has_gizmo(spatial):
 		print("Match: "+str(spatial.name))
 		return true
 	else:
-		print("No Match: "+str(spatial.name))
+		#print("No Match: "+str(spatial.name))
 		return false
 
 func get_forward(curve, index):
@@ -35,9 +35,13 @@ func redraw(gizmo):
 	var spatial = gizmo.get_spatial_node()
 	var curve = get_curve(spatial)
 	
-	var lines = PackedVector3Array()
-	var lines2 = PackedVector3Array()
-	var handles = PackedVector3Array()
+	var lines = PackedVector3Array([Vector3(0,0,0)])
+	var lines2 = PackedVector3Array([Vector3(0,0,1)])
+	var handles = PackedVector3Array([Vector3(0,0,2)])
+	lines.remove(0)
+	lines2.remove(0)
+	handles.remove(0)
+	
 
 	for n in range(0, curve.get_point_count() as int):
 		var pos = curve.get_point_position(n)
@@ -56,13 +60,16 @@ func redraw(gizmo):
 	gizmo.add_handles(handles, get_material("handles", gizmo))
 
 func get_handle_name( gizmo, index ):
+	print("Get Handle Index " + str(index))
 	return index
 	
 func get_handle_value( gizmo, index ):
+	print("Get Handle Value - Index " + str(index))
 	var spatial = gizmo.get_spatial_node()
 	return get_curve(spatial).get_point_tilt(index)
 
 func set_handle ( gizmo, index, camera, point ):
+	print("Set Handle Index " + str(index))
 	var spatial = gizmo.get_spatial_node()
 	var curve = get_curve(spatial)
 	
@@ -82,5 +89,3 @@ func set_handle ( gizmo, index, camera, point ):
 		* -sign(intersect_local.dot(cross)))  # give the angle a sign
 	
 	redraw(gizmo)
-# you should implement the rest of handle-related callbacks
-# (get_handle_name(), get_handle_value(), commit_handle()...)

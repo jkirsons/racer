@@ -11,6 +11,7 @@ class_name BoostArea
 var parent_curve : Curve3D
 
 var settings = {}
+var timer : float = 0.0
 
 func get_settings() -> Dictionary:
 	var set = {
@@ -37,8 +38,14 @@ func _process(delta):
 		settings = set
 		update_pos()
 
+	if timer > 0:
+		timer -= delta
+	if timer < 0:
+		update_pos()
+		timer = 0
+
 func _on_Path_curve_changed():
-	update_pos()
+	timer = 3.0
 	
 func update_pos():
 	if !parent_curve:
