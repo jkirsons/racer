@@ -14,11 +14,10 @@ var settings = {}
 var timer : float = 0.0
 
 func get_settings() -> Dictionary:
-	var set = {
+	return {
 		start_pos: start_pos,
 		offset: offset
 	}
-	return set
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,9 +32,9 @@ func _on_Area_body_entered(body):
 		body.speed = speed;
 
 func _process(delta):
-	var set = get_settings()
-	if set.hash() != settings.hash():
-		settings = set
+	var sett = get_settings()
+	if sett.hash() != settings.hash():
+		settings = sett
 		update_pos()
 
 	if timer > 0:

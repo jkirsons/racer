@@ -135,7 +135,7 @@ func process_input(delta):
 		else:
 			steering += min(steering * -1, steering_speed * delta * steering_center_multiplier)
 	
-func get_gravity(delta): 
+func get_gravity(_delta): 
 	var space_state = get_world_3d().direct_space_state
 	var height_offset = Vector3(0.0, 0.1, 0.0) * global_transform.basis.y
 	var aabb_y = Vector3(0.0, aabb.position.y, 0.0)

@@ -38,8 +38,8 @@ _global_script_class_icons={
 @"Trail3D": "",
 @"PathRotation": "",
 @"PathClone": "",
-@"PathSegment": "",
-@"BoostArea": ""
+@"BoostArea": "",
+@"PathSegment": ""
 }
 
 [application]

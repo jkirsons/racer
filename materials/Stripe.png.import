@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture2D"
-path.s3tc="res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.s3tc.stex"
-path.etc2="res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.etc2.stex"
+path.s3tc="res://.godot/imported/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.s3tc.stex"
+path.etc2="res://.godot/imported/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://materials/Stripe.png"
-dest_files=[ "res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.s3tc.stex", "res://.import/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.etc2.stex" ]
+dest_files=[ "res://.godot/imported/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.s3tc.stex", "res://.godot/imported/Stripe.png-e69224d5426cd95ea8f40ad0c4e6d469.etc2.stex" ]
 
 [params]
 

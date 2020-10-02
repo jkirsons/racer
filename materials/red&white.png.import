@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture2D"
-path.s3tc="res://.import/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.s3tc.stex"
-path.etc2="res://.import/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.etc2.stex"
+path.s3tc="res://.godot/imported/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.s3tc.stex"
+path.etc2="res://.godot/imported/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -12,7 +12,7 @@ metadata={
 [deps]
 
 source_file="res://materials/red&white.png"
-dest_files=[ "res://.import/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.s3tc.stex", "res://.import/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.etc2.stex" ]
+dest_files=[ "res://.godot/imported/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.s3tc.stex", "res://.godot/imported/red&white.png-ce26cdde762ed012f3cfad618b5f9ead.etc2.stex" ]
 
 [params]
 

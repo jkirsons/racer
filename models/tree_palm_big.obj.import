@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh"
+path="res://.godot/imported/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh"
 
 [deps]
 
-files=[ "res://.import/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh" ]
+files=[ "res://.godot/imported/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh" ]
 
 source_file="res://models/tree_palm_big.obj"
-dest_files=[ "res://.import/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh", "res://.import/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh" ]
+dest_files=[ "res://.godot/imported/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh", "res://.godot/imported/tree_palm_big.obj-a2ba4eb99d919f15c34c9b4c899102c7.mesh" ]
 
 [params]
 

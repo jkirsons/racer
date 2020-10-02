@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh"
+path="res://.godot/imported/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh"
 
 [deps]
 
-files=[ "res://.import/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh" ]
+files=[ "res://.godot/imported/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh" ]
 
 source_file="res://models/ship_new.obj"
-dest_files=[ "res://.import/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh", "res://.import/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh" ]
+dest_files=[ "res://.godot/imported/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh", "res://.godot/imported/ship_new.obj-d6fea8bf094279e74de604b7f1d9ecbf.mesh" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/ring.glb-92245d40d4d3f68f1d40c2e61c91d089.scn"
+path="res://.godot/imported/ring.glb-92245d40d4d3f68f1d40c2e61c91d089.scn"
 
 [deps]
 
 source_file="res://models/ring.glb"
-dest_files=[ "res://.import/ring.glb-92245d40d4d3f68f1d40c2e61c91d089.scn" ]
+dest_files=[ "res://.godot/imported/ring.glb-92245d40d4d3f68f1d40c2e61c91d089.scn" ]
 
 [params]
 

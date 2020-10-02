@@ -42,12 +42,12 @@ func update_curve(parent_curve_in : Curve3D):
 	curve.clear_points()
 	for i in range(start_node, (start_node+length)):
 		
-		var point_out : Vector3
+		var point_out : Vector3 = Vector3.ZERO
 		point_out = parent_curve.get_point_out(i)
 		if i == start_node+length:
 			point_out = Vector3.ZERO
 		
-		var point_in : Vector3 
+		var point_in : Vector3 = Vector3.ZERO
 		point_in = parent_curve.get_point_in(i)
 		if i == start_node:
 			point_in = Vector3.ZERO

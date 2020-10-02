@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/palm2.glb-7b97a218410a77f652f2a1333c6f7d6a.scn"
+path="res://.godot/imported/palm2.glb-7b97a218410a77f652f2a1333c6f7d6a.scn"
 
 [deps]
 
 source_file="res://models/palm2.glb"
-dest_files=[ "res://.import/palm2.glb-7b97a218410a77f652f2a1333c6f7d6a.scn" ]
+dest_files=[ "res://.godot/imported/palm2.glb-7b97a218410a77f652f2a1333c6f7d6a.scn" ]
 
 [params]
 
