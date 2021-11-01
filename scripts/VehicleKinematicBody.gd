@@ -1,4 +1,5 @@
-extends KinematicBody3D
+extends RigidDynamicBody3D
+class_name VehicleKinematicBody
 
 var speed = 0.0
 var steering = 0.0
@@ -38,7 +39,7 @@ var contact_points = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	set_gravity_scale(0)
 
 func _physics_process(delta):
 	process_input(delta)
@@ -55,15 +56,14 @@ func _physics_process(delta):
 	
 	# apply speed
 	var velocity_vector : Vector3 = Vector3.ZERO
+	var collisions : KinematicCollision3D
 	if speed != 0:
-		velocity_vector = move_and_slide(global_transform.basis.xform(Vector3(0.0, 0.0, speed * -1)))
-	
-	# collision particles
-	if get_slide_count() > 0:
-		var col = get_slide_collision(0)
-		if col.local_shape != ship_model:
-			particles.global_transform.origin = col.position
-			particles.emitting = true
+		collisions = move_and_collide(global_transform.basis * Vector3(0.0, 0.0, speed * -1))
+		# collision particles
+		if collisions && collisions.get_collision_count ( ) > 0:
+			if collisions.get_local_shape(0) != ship_model:
+				particles.global_transform.origin = collisions.get_position(0)
+				particles.emitting = true
 	else:
 		particles.emitting = false
 	
@@ -171,6 +171,6 @@ func get_gravity(_delta):
 		#distance /= contact_points
 		grav_vector = Vector3(0.0, max(hover_acc * (hover_height  - distance), -gravity_acc), 0.0)
 	
-	move_and_slide(grav_vector)
+	move_and_collide(grav_vector)
 
 	return normal

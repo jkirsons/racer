@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckbq8js1j01a7"]
+
+[ext_resource type="Script" path="res://scripts/CleanCurve.gd" id="1_aqoim"]
+
+[node name="Clean Curve" type="Node3D"]
+script = ExtResource( "1_aqoim" )
+parent_path = NodePath("../Track/MainPath")

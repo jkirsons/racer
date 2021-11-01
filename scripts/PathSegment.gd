@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Path3D
 class_name PathSegment
 
@@ -25,7 +25,7 @@ func _process(delta):
 		var parent : Path3D = get_node(parent_path) as Path3D
 		parent_curve = parent.curve
 		
-	if Engine.editor_hint and (length != curve.get_point_count() or curve.get_point_position(0) != parent_curve.get_point_position(start_node)) and parent_path:
+	if Engine.is_editor_hint() and (length != curve.get_point_count() or curve.get_point_position(0) != parent_curve.get_point_position(start_node)) and parent_path:
 		update_curve(parent_curve)
 
 	if timer > 0:
@@ -35,6 +35,7 @@ func _process(delta):
 		update_curve(parent_curve)
 		
 func update_curve(parent_curve_in : Curve3D):
+	print(String(self.name) + " - PathSegment - Curve Updating")
 	if length == 0:
 		length = parent_curve_in.get_point_count()
 	

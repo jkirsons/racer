@@ -47,6 +47,7 @@ func _on_Path_curve_changed():
 	timer = 3.0
 	
 func update_pos():
+	print(String(self.name) + " - Updating Position")
 	if !parent_curve:
 		parent_curve = get_node(parent_path).curve
 	
@@ -57,11 +58,13 @@ func update_pos():
 	# position offset
 	var forward = Vector3()
 	if pos < (length - 0.001):
-		forward = (parent_curve.interpolate_baked(pos) - parent_curve.interpolate_baked(pos + 0.001)).normalized()
+		forward = -(parent_curve.interpolate_baked(pos) 
+			- parent_curve.interpolate_baked(pos + 0.001)).normalized()
 	else:
-		forward = (parent_curve.interpolate_baked(pos - 0.001) - parent_curve.interpolate_baked(pos)).normalized()
-	var up = -parent_curve.interpolate_baked_up_vector(pos, true).bounce(Vector3.UP).normalized()
-	var right = forward.cross(up)
+		forward = -(parent_curve.interpolate_baked(pos - 0.001) 
+			- parent_curve.interpolate_baked(pos) ).normalized()
+	var up = parent_curve.interpolate_baked_up_vector(pos, true).normalized()
+	var curve_transform = Basis().looking_at(forward, up)
 	
-	global_transform.origin = parent_curve.interpolate_baked(pos) + right * offset.x + up * offset.y + forward * offset.z
-	global_transform.basis = Basis(right, up, forward)
+	global_transform.origin = parent_curve.interpolate_baked(pos) + curve_transform * offset
+	global_transform.basis = curve_transform

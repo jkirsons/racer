@@ -1,19 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
+uid="uid://ddhev38voc3fk"
 path="res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh"
 
 [deps]
 
-files=[ "res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh" ]
+files=["res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh"]
 
 source_file="res://models/ship2.obj"
-dest_files=[ "res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh", "res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh" ]
+dest_files=["res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh", "res://.godot/imported/ship2.obj-e01539b143a12a945b9798d507733b8b.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
