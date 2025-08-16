@@ -1,35 +1,85 @@
-extends RigidDynamicBody3D
+#extends RigidDynamicBody3D
+extends CharacterBody3D
 class_name VehicleKinematicBody
 
 var speed = 0.0
 var steering = 0.0
 
-@export var acceleration = 10.0
-@export var friction_deceleration = 5.0
+@export_category("Vehicle")
+
+@export_group("Speed")
+
+## Engine Acceleration
+@export var acceleration = 10.0 
+
+## Maximum Vehicle Speed
 @export var max_speed = 40.0
 
-@export var max_steering : float =  PI / 3 # radians
-@export var steering_speed = 4.0
-@export var steering_roll = 0.5
-@export var steering_yaw = 0.3
-@export var steering_center_multiplier = 4 # multiplier when returning steering to center
+## Acceleration down, or in the direction of the track
+@export var gravity_acc = 10.0
 
+@export_group("Hover")
+
+## Force pushing the vehicle back up off the track 
+@export var hover_acc = 6.0
+
+## Height to hover at
 @export var hover_height = 0.6
 
-@export var gravity_acc = 10.0
-@export var hover_acc = 6
+@export_group("Deceleration")
 
-@export var roll_speed = 4;
-@export var pitch_speed = 12;
-@export var yaw_speed = 8;
+## "Air Friction" that slows the vehicle down
+@export var friction_deceleration = 5.0
 
-@export var collision_speed_decrease = 10
+## Decelleration when hitting an object 
+@export var collision_speed_decrease = 10.0
+
+@export_group("Roll Speed")
+
+## Speed that the vehicle rolls to match the track
+@export var roll_speed = 4.0;
+
+## Speed that the vehicle pitches to match the track
+@export var pitch_speed = 12.0;
+
+## Speed that the vehicle yaws to match the track
+@export var yaw_speed = 8.0;
+
+
+@export_group("Steering")
+
+## Maximum steering angle in radians
+@export var max_steering : float =  PI / 3 # radians
+
+## Speed to steer at
+@export var steering_speed = 4.0
+
+## Ship roll when steering
+@export var steering_roll = 0.5
+
+## Ship yaw when steering
+@export var steering_yaw = 0.3
+
+## Speed to return to center after steering
+@export var steering_center_multiplier = 4 # multiplier when returning steering to center
+
+@export_group("FX")
+
+## Length of trails behind the vehicle
 @export var max_trail_length = 4.5
 
-@onready var aabb = get_node("CollisionShape/ship").get_aabb()
-@onready var initial_pos = get_node("CollisionShape/ship").global_transform.origin
-@onready var ship_model = get_node("CollisionShape")
-@onready var initial_basis = get_node("CollisionShape/ship").global_transform.basis
+@export_group("Debug")
+@export var vehicle_gravity : Vector3
+@export var vehicle_velocity : Vector3
+@export var combined_velocity : Vector3
+@export var ground_norm : Vector3
+@export var global_transform_basis : Basis
+
+@onready var aabb = get_node("CollisionShape3D/ship").get_aabb()
+@onready var initial_pos = get_node("CollisionShape3D/ship").global_transform.origin
+@onready var ship_model = get_node("CollisionShape3D")
+@onready var static_collider = get_node("Static CollisionShape3D")
+@onready var initial_basis = get_node("CollisionShape3D/ship").global_transform.basis
 
 @onready var particles : CPUParticles3D = get_node("CPUParticles3D") as CPUParticles3D
 #@onready var trail_left : Trail3D = get_node("CollisionShape/ship/Trail3D Left") as Trail3D
@@ -38,8 +88,8 @@ var steering = 0.0
 var contact_points = 0
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	set_gravity_scale(0)
+#func _ready():
+	#set_gravity_scale(0)
 
 func _physics_process(delta):
 	process_input(delta)
@@ -48,24 +98,39 @@ func _physics_process(delta):
 	#trail_right.length = (speed / max_speed) * max_trail_length
 	#trail_left.segment_length = trail_left.length / trail_left.density_lengthwise
 	#trail_right.segment_length = trail_right.length / trail_right.density_lengthwise
-	
-	var ground_normal = get_gravity(delta)
+	var ret = get_vehicle_gravity(delta)
+	var ground_normal = ret[0]
+	var grav_vector = ret[1]
 
 	# apply steering
 	global_transform.basis = global_transform.basis.rotated(global_transform.basis.y.normalized(), -steering * delta)
 	
 	# apply speed
 	var velocity_vector : Vector3 = Vector3.ZERO
-	var collisions : KinematicCollision3D
 	if speed != 0:
-		collisions = move_and_collide(global_transform.basis * Vector3(0.0, 0.0, speed * -1))
+		self.velocity = global_transform.basis * Vector3(0.0, 0.0, speed * -1) + grav_vector
+		
+		# Debug
+		vehicle_gravity = grav_vector
+		vehicle_velocity = global_transform.basis * Vector3(0.0, 0.0, speed * -1)
+		combined_velocity = self.velocity
+		global_transform_basis = global_transform.basis
+		ground_norm = ground_normal
+		move_and_slide()
+
 		# collision particles
-		if collisions && collisions.get_collision_count ( ) > 0:
-			if collisions.get_local_shape(0) != ship_model:
-				particles.global_transform.origin = collisions.get_position(0)
-				particles.emitting = true
+		var collision_cnt = get_slide_collision_count()
+		for i in range(0, collision_cnt):
+			var collision = get_slide_collision(i)
+			#var c = collision.get_collider_shape(0)
+			if collision.get_collider_shape(0) != ship_model && collision.get_collider_shape(0) != static_collider:
+				particles.global_transform.origin = collision.get_position(0)
+		particles.emitting = is_on_wall()
+		
 	else:
 		particles.emitting = false
+		self.velocity = grav_vector
+		move_and_slide()
 	
 	# Roll
 	# Project the normal onto a plane of the Y axis
@@ -109,15 +174,13 @@ func _physics_process(delta):
 		if speed > collision_speed_decrease and abs(y_rotation_angle) > 0.1:
 			speed -= collision_speed_decrease * abs(y_rotation_angle)
 			#print("Collision: " + str(collision_speed_decrease * abs(y_rotation_angle)))
-			
-
 
 func process_input(delta):
 		# speed
 	if Input.is_action_pressed("ui_up") && speed < max_speed :
 		speed = speed + acceleration * delta
 	elif Input.is_action_pressed("ui_down") && speed > 0.0:
-		speed = speed - (acceleration * delta / 2)
+		speed = speed - (acceleration * delta)
 	elif speed != 0:
 		if(speed > 0):
 			speed = speed - min(friction_deceleration * delta, speed)
@@ -134,8 +197,13 @@ func process_input(delta):
 			steering -= min(steering, steering_speed * delta * steering_center_multiplier)
 		else:
 			steering += min(steering * -1, steering_speed * delta * steering_center_multiplier)
+			
+	# Restart
+	if Input.is_action_pressed("ui_select"):
+		self.transform.origin = Vector3(0.0, 0.0, 0.0)
+		speed = 0
 	
-func get_gravity(_delta): 
+func get_vehicle_gravity(_delta): 
 	var space_state = get_world_3d().direct_space_state
 	var height_offset = Vector3(0.0, 0.1, 0.0) * global_transform.basis.y
 	var aabb_y = Vector3(0.0, aabb.position.y, 0.0)
@@ -150,13 +218,13 @@ func get_gravity(_delta):
 	#ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  - (aabb.size.x/2) * global_transform.basis.x + height_offset)
 	#ray_points.push_back( global_transform.origin + aabb_y * global_transform.basis.y  + (aabb.size.x/2) * global_transform.basis.x + height_offset)
 	
-	# find average distance and normal
+	# find average distance and ground normal
 	contact_points = 0
 	var normal = Vector3.ZERO
 	var distance = 999 #0
 	for point in ray_points:
 		var to = point + global_transform.basis.y * -(hover_height + (gravity_acc-hover_acc) + height_offset.y )
-		var coll = space_state.intersect_ray(point, to, [self])
+		var coll = space_state.intersect_ray(PhysicsRayQueryParameters3D.create(point, to, 0xFFFFFFFF, [self]))
 		if coll:
 			contact_points += 1
 			#distance += point.distance_to(coll['position']) - height_offset.y 
@@ -166,11 +234,10 @@ func get_gravity(_delta):
 	var grav_vector = Vector3.ZERO
 	if !contact_points:
 		grav_vector = Vector3(0.0, -gravity_acc, 0.0)
+		normal = Vector3.UP
 	else:
 		normal /= contact_points
 		#distance /= contact_points
 		grav_vector = Vector3(0.0, max(hover_acc * (hover_height  - distance), -gravity_acc), 0.0)
-	
-	move_and_collide(grav_vector)
 
-	return normal
+	return [normal,grav_vector]  # ground normal

@@ -1,99 +1,93 @@
-[gd_scene load_steps=22 format=3 uid="uid://mrg8edich1l5"]
+[gd_scene load_steps=19 format=3 uid="uid://mrg8edich1l5"]
 
 [ext_resource type="PackedScene" uid="uid://bcl1tj2r2sbr8" path="res://BoostZone.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://2n78khu3yi0s" path="res://Vehicle.tscn" id="2"]
 [ext_resource type="Environment" uid="uid://ccn1dhy0hv0xy" path="res://default_env.tres" id="3"]
-[ext_resource type="Script" path="res://scripts/PathClone.gd" id="4"]
-[ext_resource type="Script" path="res://scripts/Camera.gd" id="5"]
-[ext_resource type="Script" path="res://scripts/PathSegment.gd" id="6"]
-[ext_resource type="Script" path="res://scripts/PathRotation.gd" id="7"]
-[ext_resource type="Texture2D" uid="uid://blreoahffp0s0" path="res://materials/Stripe.png" id="8"]
-[ext_resource type="Texture2D" uid="uid://deqncmrsj0egc" path="res://materials/red&white.png" id="9"]
+[ext_resource type="Script" uid="uid://b5sw1w7idht5x" path="res://scripts/PathClone.gd" id="4"]
+[ext_resource type="Script" uid="uid://bjg0p5h282sng" path="res://scripts/Camera.gd" id="5"]
+[ext_resource type="Script" uid="uid://c8urh5k7hx2cc" path="res://scripts/PathSegment.gd" id="6"]
 [ext_resource type="Material" path="res://materials/pink.tres" id="10"]
-[ext_resource type="PackedScene" path="res://Palm.tscn" id="11"]
-[ext_resource type="PackedScene" path="res://ring.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://vedqljea24j2" path="res://Palm.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://c6ls2qsjysh0w" path="res://ring.tscn" id="12"]
 
 [sub_resource type="Curve3D" id="1"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.23143, 1.73896, -16.823, 0, 0, 0, 0, 0, 0, -3.96021, 2.92531, -89.1786, -1.01096, -0.430345, 14.925, 1.01096, 0.430345, -14.925, -3.03139, -0.905014, -136.667, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 128.353, 8.64568, -1.42054, 5.69127, 0.710484, -0.477088, -5.69127, -0.710484, 0.477088, -6.77828, 27.5414, -3.68361, 2.90148, 0, -0.378455, -2.90148, 0, 0.378455, -18.0396, 12.7872, 0.441528, 14.6047, -0.0959358, -0.143141, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559, -8.73372, 0.00038147, -15.4903, 8.73372, -0.00038147, 15.4903, -216.918, 0, 174.077, -17.6188, -1.52588e-05, -8.66194, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435, 0.335613, 0.000289917, 11.2271, -0.335613, -0.000289917, -11.2271, 4.19254, -0.230675, 131.713, 0, 0, 0, 0, 0, 0, -1.73019, 1.10478, -1.9542),
-"tilts": PackedFloat32Array(0.414453, 0.37709, 0.380514, 0.567794, 0.612034, 0.689488, 0.618292, 0.645162, 0.32929, 0.657808, 0.0471867, 0, -0.0856274, -0.268192, -0.582292, -0.657617, -0.388262, -0.146779, -0.729501, -0.318926, -0.222279, -0.759716, -0.571152, 0.236696)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.23143, 1.73896, -16.823, 0, 0, 0, 0, 0, 0, -7.17677, 0.936983, -89.5496, -1.01096, -0.430345, 14.925, 1.01096, 0.430345, -14.925, -3.03139, -0.905014, -136.667, -10.9915, 0.000534058, 14.1767, 10.9915, -0.000534058, -14.1767, 26.5725, 0, -186.007, -14.0527, 0.000274658, -0.929153, 14.0527, -0.000274658, 0.929153, 112.255, 0, -209.868, -13.7528, 6.10352e-05, -11.586, 13.7528, -6.10352e-05, 11.586, 214.206, 0, -167.569, -2.65396, -0.000106812, -17.6152, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 128.353, 8.64568, -1.42054, 5.69127, 0.710484, -0.477088, -5.69127, -0.710484, 0.477088, -6.77828, 27.5414, -3.68361, 2.90148, 0, -0.378455, -2.90148, 0, 0.378455, -18.0136, 12.6657, -3.38548, 14.6047, -0.0959358, -0.143141, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -197.217, 2.9293, 10.7585, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.779, -1.19127, 58.2374, -0.550583, -0.00591415, -10.9009, 0.550583, 0.00591415, 10.9009, -229.391, 0, 122.559, -8.73372, 0.00038147, -15.4903, 8.73372, -0.00038147, 15.4903, -216.918, 0, 174.077, -17.6188, -1.52588e-05, -8.66194, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435, 0.335613, 0.000289917, 11.2271, -0.335613, -0.000289917, -11.2271, 4.19254, -0.230675, 131.713, 0, 0, 0, 0, 0, 0, -1.73019, 1.10478, -1.9542),
+"tilts": PackedFloat32Array(0.473642, 0.37709, 0.380514, 0.448359, 0.612034, 0.689488, 0.618292, 0.645162, 0.32929, 0.657808, -0.164762, 0, -0.0856274, -0.268192, -0.582292, -0.657617, -0.388262, -0.146779, -0.729501, -0.318926, -0.222279, -0.759716, -0.571152, 0.236696)
 }
+point_count = 24
 
 [sub_resource type="StandardMaterial3D" id="2"]
 albedo_color = Color(0.133333, 0.133333, 0.133333, 1)
 
 [sub_resource type="Curve3D" id="3"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -196.544, 3.20473, 9.66705, 5.80186, 0.655639, -16.5893, -5.80186, -0.655639, 16.5893, -230.661, 0.250006, 57.6518),
-"tilts": PackedFloat32Array(-0.268192, -0.582292, -0.657617)
+"points": PackedVector3Array(0, 0, 0, -14.6047, 0.0959358, 0.143141, -112.074, 8.68314, -0.295872, 10.7799, 0.090229, -0.293541, -10.7799, -0.090229, 0.293541, -153.043, 6.87873, -1.0687, 14.5372, 3.2966, -6.83316, -14.5372, -3.2966, 6.83316, -197.217, 2.9293, 10.7585),
+"tilts": PackedFloat32Array(-0.0856274, -0.268192, -0.582292)
 }
+point_count = 3
 
 [sub_resource type="StandardMaterial3D" id="4"]
 shading_mode = 2
-albedo_texture = ExtResource( "8" )
 emission_enabled = true
-emission_energy = 0.58
-emission_texture = ExtResource( "8" )
+emission_energy_multiplier = 0.58
 
 [sub_resource type="Curve3D" id="5"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 2.65396, 0.000106812, 17.6152, 252.644, 0.467533, -94.0477, 3.97285, 0.0250216, -10.8228, -3.97285, -0.0250216, 10.8228, 252.763, -0.923695, -46.4004, 7.60597, -0.0756912, -10.898, -7.60597, 0.0756912, 10.898, 236.441, 0, -10.8459, 18.4807, -9.53674e-05, -0.401894, -18.4807, 9.53674e-05, 0.401894, 128.353, 8.64568, -1.42054),
 "tilts": PackedFloat32Array(0.618292, 0.645162, 0.32929, 0.657808)
 }
+point_count = 4
 
 [sub_resource type="Curve3D" id="6"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 17.6188, 1.52588e-05, 8.66194, -172.45, -3.05176e-05, 215.833, 0, 0, 0, 0, 0, 0, -108.459, -3.05176e-05, 225.052, -27.8344, 1.1441, 5.25157, 27.8344, -1.1441, -5.25157, -40.69, -0.563873, 222.706, -3.42494, -0.496246, 14.8348, 3.42494, 0.496246, -14.8348, 3.33397, 0.578568, 184.435),
 "tilts": PackedFloat32Array(-0.729501, -0.318926, -0.222279, -0.759716)
 }
+point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="7"]
 shading_mode = 2
 albedo_color = Color(0, 0.784314, 0.992157, 1)
 emission_enabled = true
 emission = Color(0.0313726, 0.368627, 0.396078, 1)
-emission_energy = 0.1
+emission_energy_multiplier = 0.1
 
 [sub_resource type="Curve3D" id="8"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.23143, 1.73896, -16.823),
-"tilts": PackedFloat32Array(0.414453)
+"tilts": PackedFloat32Array(0.473642)
 }
+point_count = 1
 
 [sub_resource type="StandardMaterial3D" id="9"]
 shading_mode = 2
-albedo_texture = ExtResource( "9" )
 emission_enabled = true
 emission = Color(1, 0, 0, 1)
-emission_energy = 0.0
-emission_texture = ExtResource( "9" )
+emission_energy_multiplier = 0.0
 uv1_scale = Vector3(4.04, 1, 1)
 
 [node name="Root" type="Node3D"]
-script = null
 
-[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.999866, -0.0134174, 0.00939502, -0.0147692, -0.490486, 0.871324, -0.00708282, -0.871346, -0.490618, 0, 11.6691, 0)
 light_color = Color(0.866667, 0.866667, 0.866667, 1)
 light_bake_mode = 0
 shadow_enabled = true
-script = null
 
-[node name="Camera" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.708)
-environment = ExtResource( "3" )
+environment = ExtResource("3")
 current = true
 far = 300.0
-script = ExtResource( "5" )
+script = ExtResource("5")
 target_object = NodePath("../../Root/Vehicle")
 target_height = 1.166
 
 [node name="Track" type="Node3D" parent="."]
-script = ExtResource( "7" )
 
 [node name="MainPath" type="Path3D" parent="Track"]
-curve = SubResource( "1" )
-script = null
+curve = SubResource("1")
 
 [node name="TrackMesh" type="CSGPolygon3D" parent="Track/MainPath"]
 use_collision = true
@@ -104,47 +98,46 @@ path_interval_type = 0
 path_interval = 5.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = false
 path_u_distance = 1.0
 path_joined = true
-material = SubResource( "2" )
-script = null
+material = SubResource("2")
 
 [node name="Linked Paths" type="Node3D" parent="Track/MainPath"]
-script = null
 
 [node name="RightBarrier" type="Path3D" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( "3" )
-script = ExtResource( "6" )
+curve = SubResource("3")
+script = ExtResource("6")
 parent_path = NodePath("../../../../../Root/Track/MainPath")
-start_node = 13
+start_node = 12
 length = 3
 
-[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/RightBarrier"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/RightBarrier"]
 use_collision = true
 polygon = PackedVector2Array(5.05, 0.229, 5.867, 1.115, 6.97871, 3.48871, 7.273, 6.169, 7.917, 6.177, 7.684, 3.435, 6.232, 0.791, 5.126, -0.191)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
-path_interval = 10.0
+path_interval = 1.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = false
 path_u_distance = 1.0
 path_joined = false
-material = SubResource( "4" )
-script = null
+material = SubResource("4")
 
 [node name="LeftBarrier" type="Path3D" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( "5" )
-script = ExtResource( "6" )
+curve = SubResource("5")
+script = ExtResource("6")
 parent_path = NodePath("../..")
 start_node = 6
 length = 4
 
-[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/LeftBarrier"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/LeftBarrier"]
 use_collision = true
 polygon = PackedVector2Array(-5.05, 0.229, -5.867, 1.115, -6.991, 3.632, -7.273, 6.169, -7.917, 6.177, -7.684, 3.435, -6.232, 0.791, -5.126, -0.191)
 mode = 2
@@ -153,21 +146,21 @@ path_interval_type = 0
 path_interval = 8.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = false
 path_u_distance = 1.0
 path_joined = false
-material = SubResource( "4" )
-script = null
+material = SubResource("4")
 
 [node name="BlueTunnel" type="Path3D" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( "6" )
-script = ExtResource( "6" )
+curve = SubResource("6")
+script = ExtResource("6")
 parent_path = NodePath("../..")
 start_node = 18
 length = 4
 
-[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/BlueTunnel"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/BlueTunnel"]
 polygon = PackedVector2Array(-1.44107, -2.88214, -5.13982, -0.864641, -6.38875, 2.73803, -5.04375, 6.67696, 0.0960726, 9.41499, 4.8516, 7.01321, 6.38875, 3.26643, 5.33196, -1.63321, 0.624465, -2.97821, 0.576428, -4.13107, 6.1966, -2.40178, 7.58964, 3.3625, 5.76428, 7.5416, -0.528393, 10.76, -5.86035, 7.73374, -7.63767, 2.78607, -6.10053, -1.68125, -1.44107, -4.32321)
 mode = 2
 path_node = NodePath("..")
@@ -175,21 +168,20 @@ path_interval_type = 0
 path_interval = 10.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = false
 path_u_distance = 1.0
 path_joined = false
-material = SubResource( "7" )
-script = null
+material = SubResource("7")
 
 [node name="Rail" type="Path3D" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( "8" )
-script = ExtResource( "6" )
+curve = SubResource("8")
+script = ExtResource("6")
 parent_path = NodePath("../../../../../Root/Track/MainPath")
 
-[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/Rail"]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/Rail"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.10881, 0)
-invert_faces = true
 polygon = PackedVector2Array(-5.177, 1.444, -5.166, 1.668, -5.368, 1.649, -5.362, 1.447)
 mode = 2
 path_node = NodePath("..")
@@ -197,20 +189,19 @@ path_interval_type = 0
 path_interval = 5.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = false
 path_u_distance = 1.0
 path_joined = true
-material = ExtResource( "10" )
-script = null
+material = ExtResource("10")
 
 [node name="Rail2" type="Path3D" parent="Track/MainPath/Linked Paths"]
-curve = SubResource( "8" )
-script = ExtResource( "6" )
+curve = SubResource("8")
+script = ExtResource("6")
 parent_path = NodePath("../../../../../Root/Track/MainPath")
 
-[node name="CSGPolygon" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/Rail2"]
-invert_faces = true
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track/MainPath/Linked Paths/Rail2"]
 polygon = PackedVector2Array(5.005, 1.5, 4.992, 1.684, 5.185, 1.675, 5.189, 1.494)
 mode = 2
 path_node = NodePath("..")
@@ -218,127 +209,130 @@ path_interval_type = 0
 path_interval = 5.0
 path_simplify_angle = 0.0
 path_rotation = 2
+path_rotation_accurate = false
 path_local = false
 path_continuous_u = false
 path_u_distance = 1.0
 path_joined = true
-material = ExtResource( "10" )
-script = null
+material = ExtResource("10")
 
 [node name="Standalone Objects" type="Node3D" parent="Track"]
 visible = false
-script = null
 
 [node name="Semi-Circle" type="CSGPolygon3D" parent="Track/Standalone Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05981, -0.209588, -26.7052)
 polygon = PackedVector2Array(-5.66183, 0.0480834, -5.10887, 3.29372, -2.95713, 5.2411, -0.0360629, 5.73395, 3.32978, 5.31322, 5.28918, 3.49807, 6.1066, -0.0240415, 5.12089, -0.0240415, 4.45974, 3.32978, 2.93309, 4.76026, -0.0240415, 5.06078, -2.64459, 4.56793, -4.39964, 2.98117, -4.97664, 0)
 depth = 42.763
-material = SubResource( "9" )
-script = null
+material = SubResource("9")
 
-[node name="Vehicle" parent="." instance=ExtResource( "2" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.89045, -4.07296)
-gravity_scale = 0.0
+[node name="Vehicle" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0415, 4.55887, -10.3542)
 hover_height = 0.6
 
 [node name="Trees" type="Node3D" parent="."]
-script = ExtResource( "4" )
+script = ExtResource("4")
 parent_path = NodePath("../Track/MainPath")
-object_res = ExtResource( "11" )
+object_res = ExtResource("11")
 start_pos = 0.905
 copies = 8
 space_between = 0.007
-offset = Vector3(6.601, 0.561, 0)
+offset = Vector3(6.701, 0.561, 0)
 random_rotate = true
 align_to_path = true
 mirror_x = true
+opposite_offset = true
 
-[node name="Trees__0" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.829974, -0.469158, -0.301718, -0.436889, 0.883054, -0.171304, 0.346801, -0.0103606, -0.937881, -1.03834, -2.37931, 151.506)
+[node name="Trees__0" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.19158496, -0.45834842, -0.8678779, 0.11046472, 0.8887093, -0.44496477, 0.97523993, -0.010621342, 0.22089463, -1.1594467, -2.351602, 151.46495)
 
-[node name="Trees__0_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.578505, -0.469158, -0.66725, 0.316176, 0.883053, -0.34677, 0.751907, -0.0103606, 0.659188, 10.6132, 3.81452, 151.918)
+[node name="Trees__0_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.38686576, -0.45834842, -0.80015725, 0.21025512, 0.88870925, -0.4074173, 0.8978462, -0.010621329, 0.44018123, 11.257727, 2.7940516, 151.92168)
 
-[node name="Trees__1" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.669419, -0.435413, 0.601909, 0.322837, 0.90023, 0.292168, -0.66907, -0.00126389, 0.743199, 10.2667, 3.28839, 140.711)
+[node name="Trees__1" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(-0.81117964, -0.42261156, 0.40421203, -0.37912685, 0.90630966, 0.18672542, -0.44525337, -0.0017797919, -0.8954029, -1.7260985, -2.4150755, 140.03574)
 
-[node name="Trees__1_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.142179, -0.435413, 0.888933, -0.0701538, 0.90023, 0.429726, -0.987352, -0.00126387, -0.15854, -1.6012, -2.45993, 140.075)
+[node name="Trees__1_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(-0.6730257, -0.42261147, 0.60698944, -0.31514537, 0.90630966, 0.28157935, -0.66911876, -0.001779756, -0.7431535, 10.876221, 2.2318833, 140.71387)
 
-[node name="Trees__2" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.91893, -0.393372, -0.0287653, -0.393783, 0.919147, 0.010169, 0.0224393, 0.0206718, -0.999535, -2.18572, -2.3012, 128.831)
+[node name="Trees__2" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.7548212, -0.346716, -0.55680597, 0.26699, 0.93777955, -0.22200446, 0.5991338, 0.018912017, 0.8004255, -2.377195, -2.0172749, 128.79819)
 
-[node name="Trees__2_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.604856, -0.393371, 0.692393, -0.241799, 0.919147, 0.310969, -0.758737, 0.0206718, -0.651069, 9.94126, 2.89209, 129.34)
+[node name="Trees__2_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.049948394, -0.34671602, -0.93663925, -0.0016746661, 0.9377795, -0.34722736, 0.9987503, 0.018912008, 0.046259943, 10.572401, 1.5772249, 129.30814)
 
-[node name="Trees__3" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.511605, -0.286392, 0.810086, 0.171194, 0.957888, 0.230528, -0.841993, 0.0207426, 0.539089, 9.7878, 2.29739, 118.043)
+[node name="Trees__3" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.5714569, -0.25769964, 0.77912, 0.16872844, 0.96602654, 0.19576396, -0.8030989, 0.019589052, 0.5955238, -2.983797, -1.3151298, 117.44908)
 
-[node name="Trees__3_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.613144, -0.286392, -0.73623, 0.166598, 0.957888, -0.233871, 0.772205, 0.0207426, 0.635035, -2.84865, -1.48356, 117.48)
+[node name="Trees__3_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(-0.8470075, -0.2576997, 0.4649401, -0.21610138, 0.9660267, 0.14174989, -0.48567337, 0.019589035, -0.8739209, 10.242713, 1.0546789, 118.011185)
 
-[node name="Trees__4" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.574896, -0.21595, 0.789215, 0.142671, 0.976224, 0.163194, -0.805692, 0.0187789, 0.592037, -3.41985, -0.903226, 106.149)
+[node name="Trees__4" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(-0.6674799, -0.19490345, -0.71866786, -0.14598203, 0.98065954, -0.13037147, 0.73017806, 0.017892253, -0.6830227, -3.5362666, -0.78106636, 106.12076)
 
-[node name="Trees__4_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.231588, -0.21595, 0.948542, -0.0325268, 0.976224, 0.214311, -0.97227, 0.0187789, -0.233106, 9.45775, 1.94775, 106.726)
+[node name="Trees__4_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.57047534, -0.1949034, 0.7978538, 0.12818177, 0.9806593, 0.1479084, -0.81125057, 0.017892253, 0.584425, 9.815028, 0.7307293, 106.695145)
 
-[node name="Trees__5" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.649677, -0.158008, -0.743608, -0.11672, 0.987296, -0.107813, 0.751197, 0.0167498, -0.659866, 9.06499, 1.68205, 95.4035)
+[node name="Trees__5" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(-0.84540576, -0.14058341, 0.5152917, -0.11160338, 0.98993933, 0.086977705, -0.522335, 0.016023181, -0.8525899, -4.0656376, -0.30131155, 94.795586)
 
-[node name="Trees__5_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.603217, -0.158008, 0.781769, -0.0830824, 0.987296, 0.135442, -0.793238, 0.0167498, -0.608682, -3.95821, -0.403972, 94.8225)
+[node name="Trees__5_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(-0.93821245, -0.14058343, -0.31621778, -0.13837166, 0.98993933, -0.029558757, 0.31719187, 0.016023176, -0.9482261, 9.348436, 0.47207516, 95.37609)
 
-[node name="Trees__6" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.702688, -0.105304, 0.703662, 0.0848993, 0.994331, 0.0640212, -0.706414, 0.0147534, 0.707645, -4.47735, 0.0615751, 83.4962)
+[node name="Trees__6" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.65733707, -0.09035143, -0.74816084, 0.048990346, 0.9958101, -0.07721561, 0.7520027, 0.014104022, 0.65900916, -4.5790105, 0.15226506, 83.47269)
 
-[node name="Trees__6_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(-0.99424, -0.105304, -0.0199349, -0.105569, 0.994331, 0.0127222, 0.0184822, 0.0147534, -0.99972, 8.63816, 1.4518, 84.0822)
+[node name="Trees__6_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.070319995, -0.09035143, -0.99342424, -0.007747627, 0.9958101, -0.09111684, 0.99749446, 0.014104027, 0.06932535, 8.856884, 0.24585603, 84.05621)
 
-[node name="Trees__7" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.987166, -0.056347, -0.14943, 0.0537856, 0.998329, -0.0211304, 0.150371, 0.012822, 0.988546, 8.18614, 1.2467, 72.7605)
+[node name="Trees__7" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.62927645, -0.042139612, 0.7760383, 0.03599034, 0.99903774, 0.025064737, -0.77634776, 0.0121572325, 0.6301876, -5.0788746, 0.5929432, 72.14944)
 
-[node name="Trees__7_(Mirror)" parent="Trees" instance=ExtResource( "11" )]
-transform = Transform3D(0.893842, -0.056347, -0.444827, 0.0447195, 0.998329, -0.0365999, 0.446146, 0.012822, 0.894868, -4.98163, 0.502806, 72.1697)
+[node name="Trees__7_(Mirror)" parent="Trees" instance=ExtResource("11")]
+transform = Transform3D(0.93926, -0.042139612, -0.3406096, 0.03546408, 0.9990377, -0.025803966, 0.3413692, 0.01215723, 0.9398507, 8.3456955, 0.036777973, 72.736046)
 
 [node name="Rings" type="Node3D" parent="."]
-script = ExtResource( "4" )
+script = ExtResource("4")
 parent_path = NodePath("../Track/MainPath")
-object_res = ExtResource( "12" )
+object_res = ExtResource("12")
 start_pos = 0.074
 copies = 9
 space_between = 0.004
 align_to_path = true
 
-[node name="Rings__0" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.92825, 0.366109, -0.0657035, -0.368283, 0.929395, -0.0243391, 0.0521538, 0.0467902, 0.997542, -3.04945, -0.912249, -136.397)
+[node name="Rings__0" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.9293515, 0.36283505, -0.068238504, -0.36513397, 0.93063265, -0.024497386, 0.054616462, 0.04768288, 0.9973683, -3.0663762, -0.9185269, -136.15588)
 
-[node name="Rings__1" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.879667, 0.372177, -0.296092, -0.396891, 0.917501, -0.0258674, 0.262037, 0.140271, 0.954809, -1.84356, -0.735764, -142.743)
+[node name="Rings__1" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.888078, 0.35547495, -0.2914705, -0.37883508, 0.9250981, -0.026026305, 0.2603871, 0.13353264, 0.9562257, -1.9139881, -0.742019, -142.5104)
 
-[node name="Rings__2" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.826082, 0.37282, -0.422604, -0.420793, 0.906878, -0.0224949, 0.374864, 0.196411, 0.906035, 0.516359, -0.57978, -148.768)
+[node name="Rings__2" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.8398811, 0.3450926, -0.41894016, -0.38956884, 0.9207207, -0.022575136, 0.3779363, 0.18216646, 0.9077332, 0.41328284, -0.5852974, -148.54617)
 
-[node name="Rings__3" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.780782, 0.373178, -0.501116, -0.441463, 0.897061, -0.0198027, 0.442141, 0.236686, 0.865154, 3.53027, -0.443062, -154.498)
+[node name="Rings__3" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.798494, 0.33599657, -0.49951348, -0.3983457, 0.91701853, -0.019942554, 0.45136246, 0.21490306, 0.8660766, 3.407451, -0.4479218, -154.28473)
 
-[node name="Rings__4" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.748876, 0.377656, -0.544574, -0.460062, 0.887723, -0.0170328, 0.476999, 0.263294, 0.83854, 6.94553, -0.323619, -159.999)
+[node name="Rings__4" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.76628655, 0.3300087, -0.5512706, -0.4059631, 0.9137255, -0.017317718, 0.49799493, 0.23706585, 0.8341468, 6.809753, -0.32787418, -159.7929)
 
-[node name="Rings__5" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.719885, 0.381516, -0.579838, -0.477386, 0.878572, -0.0146138, 0.503854, 0.287326, 0.814601, 10.6218, -0.220546, -165.331)
+[node name="Rings__5" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.74496126, 0.3283226, -0.5807211, -0.41284147, 0.91068375, -0.0147279985, 0.52401775, 0.25071755, 0.8139694, 10.477116, -0.22419985, -165.12918)
 
-[node name="Rings__6" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.6975, 0.388067, -0.60241, -0.494049, 0.869351, -0.0120056, 0.519047, 0.305994, 0.798097, 14.4711, -0.134075, -170.54)
+[node name="Rings__6" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.7224828, 0.325727, -0.6098529, -0.41953486, 0.9076569, -0.012229833, 0.5495536, 0.2646904, 0.7924203, 14.320144, -0.13709016, -170.341)
 
-[node name="Rings__7" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.680356, 0.397655, -0.615619, -0.510656, 0.859738, -0.00901231, 0.525687, 0.320501, 0.787992, 18.4297, -0.0657301, -175.667)
+[node name="Rings__7" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.71536815, 0.33054903, -0.61561817, -0.42592764, 0.90471077, -0.00916768, 0.553926, 0.26876706, 0.7879913, 18.274609, -0.06801002, -175.4692)
 
-[node name="Rings__8" parent="Rings" instance=ExtResource( "12" )]
-transform = Transform3D(0.669472, 0.412199, -0.61798, -0.527845, 0.849324, -0.00531888, 0.522672, 0.329759, 0.786176, 22.4422, -0.0188424, -180.752)
+[node name="Rings__8" parent="Rings" instance=ExtResource("12")]
+transform = Transform3D(0.70948404, 0.3365879, -0.6191454, -0.43249086, 0.90162194, -0.005443551, 0.55640274, 0.27163684, 0.7852576, 22.285183, -0.020203277, -180.55391)
 
-[node name="BoostZone" parent="." instance=ExtResource( "1" )]
-transform = Transform3D(-0.0166065, 0.109092, 0.993893, -0.18447, 0.976632, -0.110279, -0.982698, -0.185174, 0.00390573, -3.07254, 28.193, -3.89918)
+[node name="BoostZone" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.0059901974, 0.14761426, 0.9890269, -0.08414061, 0.9856117, -0.14659491, -0.9964359, -0.0823392, 0.018324364, 11.782914, 26.157137, -3.5965612)
 parent_path = NodePath("../Track/MainPath")
-start_pos = 0.49
+start_pos = 0.481
 offset = Vector3(0, 0.907, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.871666, 0, 0, 0, 0.871666, 0, 0, 0, 0.871666, 24.9666, 0.316796, -0.225977)
+visible = false
+size = Vector3(2.23741, 1.51709, 1.70996)

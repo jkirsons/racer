@@ -2,7 +2,7 @@
 extends Node3D
 class_name PathClone
 
-@export_node_path(Path3D) var parent_path : NodePath
+@export_node_path("Path3D") var parent_path : NodePath
 @export var object_res : PackedScene
 #@export_file var object_path
 
@@ -89,10 +89,10 @@ func update_curve():
 		# position offset
 		var forward = Vector3()
 		if pos < (length - 0.001):
-			forward = (parent_curve.interpolate_baked(pos) - parent_curve.interpolate_baked(pos + 0.001)).normalized()
+			forward = (parent_curve.sample_baked(pos) - parent_curve.sample_baked(pos + 0.001)).normalized()
 		else:
-			forward = (parent_curve.interpolate_baked(pos - 0.001) - parent_curve.interpolate_baked(pos)).normalized()
-		var up = parent_curve.interpolate_baked_up_vector(pos, true)
+			forward = (parent_curve.sample_baked(pos - 0.001) - parent_curve.sample_baked(pos)).normalized()
+		var up = parent_curve.sample_baked_up_vector(pos, true)
 		#var right = forward.cross(up).normalized()
 		
 		var m = object_res.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
@@ -105,7 +105,7 @@ func update_curve():
 			m.global_transform.basis = Basis.looking_at(-forward, up) #Basis(right, up, forward)#.orthonormalized()
 		if random_rotate:
 			m.transform = m.transform.rotated(m.transform.basis * Vector3(0.0, 1.0, 0.0), 2.0 * PI * randf())
-		m.transform.origin = parent_curve.interpolate_baked(pos) + offset * Basis.looking_at(forward, up)
+		m.transform.origin = parent_curve.sample_baked(pos) + offset * Basis.looking_at(forward, up)
 		
 		if mirror_x:
 			var m2 = object_res.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
@@ -116,7 +116,7 @@ func update_curve():
 				m2.transform = m2.transform.rotated(m2.transform.basis * Vector3(0.0, 1.0, 0.0), 2.0 * PI * randf())
 			if !opposite_offset:
 				offset.x *= -1
-			m2.transform.origin = parent_curve.interpolate_baked(pos) + ( -1 if opposite_offset else 1 ) * offset * Basis.looking_at(forward, up)
+			m2.transform.origin = parent_curve.sample_baked(pos) + ( -1 if opposite_offset else 1 ) * offset * Basis.looking_at(forward, up)
 
 			add_child(m2)
 			m2.set_owner(get_tree().get_edited_scene_root())

@@ -1,7 +1,7 @@
 @tool
 extends Node
 
-@export_node_path(Path3D) var parent_path : NodePath
+@export_node_path("Path3D") var parent_path : NodePath
 
 var parent_curve
 

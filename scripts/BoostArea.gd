@@ -2,7 +2,8 @@
 extends Area3D
 class_name BoostArea
 
-@export_node_path(Path3D) var parent_path : NodePath
+#@export_node_path(Path3D) var parent_path : NodePath
+@export_node_path("Path3D") var parent_path : NodePath
 
 @export var speed = 100
 @export_range(0, 1) var start_pos : float
@@ -58,13 +59,13 @@ func update_pos():
 	# position offset
 	var forward = Vector3()
 	if pos < (length - 0.001):
-		forward = -(parent_curve.interpolate_baked(pos) 
-			- parent_curve.interpolate_baked(pos + 0.001)).normalized()
+		forward = -(parent_curve.sample_baked(pos) 
+			- parent_curve.sample_baked(pos + 0.001)).normalized()
 	else:
-		forward = -(parent_curve.interpolate_baked(pos - 0.001) 
-			- parent_curve.interpolate_baked(pos) ).normalized()
-	var up = parent_curve.interpolate_baked_up_vector(pos, true).normalized()
-	var curve_transform = Basis().looking_at(forward, up)
+		forward = -(parent_curve.sample_baked(pos - 0.001) 
+			- parent_curve.sample_baked(pos) ).normalized()
+	var up = parent_curve.sample_baked_up_vector(pos, true).normalized()
+	var curve_transform = Basis.looking_at(forward, up)
 	
-	global_transform.origin = parent_curve.interpolate_baked(pos) + curve_transform * offset
+	global_transform.origin = parent_curve.sample_baked(pos) + curve_transform * offset
 	global_transform.basis = curve_transform

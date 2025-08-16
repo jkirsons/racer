@@ -1,6 +1,6 @@
 extends Camera3D
 
-@export_node_path(Node3D) var target_object : NodePath
+@export_node_path("Node3D") var target_object : NodePath
 @export var target_distance := 3.0
 @export var target_height := 2.0
 @export var move_speed := 20.0

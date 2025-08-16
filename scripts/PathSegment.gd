@@ -2,7 +2,7 @@
 extends Path3D
 class_name PathSegment
 
-@export_node_path(Path3D) var parent_path : NodePath
+@export_node_path("Path3D") var parent_path : NodePath
 @export var start_node : int = 0
 @export var length: int = 1
 
@@ -12,7 +12,8 @@ var timer : float = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var parent : Path3D = get_node(parent_path) as Path3D
-	parent.connect("curve_changed", self._on_Path_curve_changed)
+	#parent.connect("curve_changed", self._on_Path_curve_changed)
+	parent.curve_changed.connect(_on_Path_curve_changed)
 	if start_node == null:
 		start_node = 0
 	
@@ -55,5 +56,3 @@ func update_curve(parent_curve_in : Curve3D):
 		
 		curve.add_point(parent_curve.get_point_position(i), point_in, point_out)
 		curve.set_point_tilt(i-start_node, parent_curve.get_point_tilt(i))
-
-

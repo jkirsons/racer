@@ -63,7 +63,7 @@ func render_trail():
 	var arr = [9]
 	arr.resize(Mesh.ARRAY_MAX)
 	var vert = PackedVector3Array()
-	while not vert.empty():
+	while not vert.is_empty():
 		vert.remove(0)
 	
 	var local_points = [0]
